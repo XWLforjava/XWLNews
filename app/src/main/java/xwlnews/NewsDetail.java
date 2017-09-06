@@ -6,9 +6,7 @@ package xwlnews;
 
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.*;
-
 import net.sf.json.*;
-
 import java.util.HashMap;
 
 public class NewsDetail {

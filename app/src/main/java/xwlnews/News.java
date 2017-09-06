@@ -6,7 +6,6 @@ package xwlnews;
 
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.*;
-
 import net.sf.json.*;
 
 public class News {
