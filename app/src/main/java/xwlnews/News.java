@@ -28,10 +28,6 @@ public class News {
 
     private NewsDetail detail;
 
-    public static String[] getTag() {
-        return tag;
-    }
-
     public String getClassTag() {
         return classTag;
     }
