@@ -17,7 +17,7 @@ import net.sf.json.JSONObject;
 
 public class News {
     private String classTag;
-    private String id;
+    private String ID;
     private String source;
     private String title;
     private String time;
@@ -31,7 +31,7 @@ public class News {
     private News(JSONObject json)
     {
         classTag = json.getString("newsClassTag");
-        id = json.getString("news_ID");
+        ID = json.getString("news_ID");
         source = json.getString("news_Source");
         title = json.getString("news_Title");
         time = json.getString("news_Time");
@@ -43,9 +43,9 @@ public class News {
         intro = json.getString("news_Intro");
     }
 
-    public String getId()
+    public String getID()
     {
-        return id;
+        return ID;
     }
     public String getTitle()
     {
@@ -106,5 +106,10 @@ public class News {
     public static News[] search(String keyword, int pageNo, int pageSize, int category)
     {
         return getNewsList("http://166.111.68.66:2042/news/action/query/search?keyword="+keyword+"&pageNo="+pageNo+"&pageSize="+pageSize+"&category="+category);
+    }
+
+    public NewsDetail getDetail()
+    {
+        return NewsDetail.fromID(ID);
     }
 }
