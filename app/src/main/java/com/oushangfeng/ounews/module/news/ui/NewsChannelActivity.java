@@ -33,6 +33,11 @@ import java.util.List;
  * UpdateUser: <p>
  * UpdateDate: <p>
  */
+
+/*
+* 控制两个RecycleView的频道管理工作。
+*包括添加，删除，拖拽排序行为。
+ */
 @ActivityFragmentInject(contentViewId = R.layout.activity_news_channel,
         menuId = R.menu.menu_settings,
         enableSlidr = true,
