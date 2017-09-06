@@ -12,7 +12,7 @@ import net.sf.json.*;
 public class News {
     private static String tag[] = {"", "科技", "教育", "军事", "国内", "社会", "文化", "汽车", "国际", "体育", "财经", "健康", "娱乐"};
 
-    private static int totalPages, totalRecords;
+    private static int nTotalPages, nTotalRecords;
 
     private String classTag;
     private String ID;
@@ -83,13 +83,13 @@ public class News {
         return detail;
     }
 
-    public static int getTotalPages()
+    public static int totalPages()
     {
-        return totalPages;
+        return nTotalPages;
     }
-    public static int getTotalRecords()
+    public static int totalRecords()
     {
-        return totalRecords;
+        return nTotalRecords;
     }
 
     public static String Tag(int code)
@@ -144,8 +144,8 @@ public class News {
             News ret[] = new News[size];
             for (int i = 0; i < size; i++)
                 ret[i] = new News(list.getJSONObject(i));
-            totalPages = json.getInt("totalPages");
-            totalRecords = json.getInt("totalRecords");
+            nTotalPages = json.getInt("totalPages");
+            nTotalRecords = json.getInt("totalRecords");
             return ret;
         }
         catch(JSONException e)
