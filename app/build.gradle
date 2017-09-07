@@ -140,7 +140,6 @@ dependencies {
     compile files('libs/jaxrs-ri/lib/jersey-media-jaxb.jar')
     compile files('libs/jaxrs-ri/lib/jersey-server.jar')
     compile files('libs/jaxrs-ri/lib/jersey-client.jar')
-    compile files('libs/jaxrs-ri/ext/jaxb-api-2.2.7.jar')
     compile files('libs/jaxrs-ri/ext/javassist-3.20.0-GA.jar')
     compile files('libs/jaxrs-ri/ext/jersey-guava-2.25.1.jar')
     compile files('libs/jaxrs-ri/ext/persistence-api-1.0.jar')
