@@ -19,6 +19,11 @@
             android:title="@string/photo"/>
 
         <item
+            android:id="@+id/action_collection"
+            android:icon="@drawable/ic_collection"
+            android:title="@string/news_collection"/>
+
+        <item
             android:id="@+id/action_settings"
             android:icon="@drawable/ic_more_black"
             android:title="@string/settings"/>

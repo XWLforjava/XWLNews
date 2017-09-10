@@ -318,6 +318,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
                     case R.id.action_photo:
                         mClass = PhotoActivity.class;
                         break;
+                    case R.id.action_collection:
+                        toast("收藏夹界面尚未写好");
+                        break;
                     case R.id.action_settings:
                         mClass = SettingsActivity.class;
                         break;
