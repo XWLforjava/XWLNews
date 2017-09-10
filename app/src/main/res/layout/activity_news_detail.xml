@@ -75,7 +75,7 @@
     <include layout="@layout/content_news_detail"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fab_pic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
@@ -84,6 +84,17 @@
         app:backgroundTint="?attr/fabColor"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end|right"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_reading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_volume_up_white"
+        android:tint="@color/material_black"
+        app:backgroundTint="?attr/fabColor"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="bottom|end|left"/>
 
     <com.oushangfeng.ounews.widget.ThreePointLoadingView
         android:id="@+id/tpl_view"

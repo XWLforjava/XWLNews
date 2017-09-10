@@ -46,7 +46,8 @@ import zhou.widget.RichText;
  * UpdateDate: <p>
  */
 @ActivityFragmentInject(contentViewId = R.layout.activity_news_detail,
-        menuId = R.menu.menu_settings,
+        //menuId = R.menu.menu_settings,
+        menuId = R.menu.menu_news_details,
         enableSlidr = true)
 public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> implements INewsDetailView {
 
@@ -102,7 +103,7 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
 
         mBodyTv = (RichText) findViewById(R.id.tv_news_detail_body);
 
-        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        mFab = (FloatingActionButton) findViewById(R.id.fab_pic);
         mFab.setOnClickListener(this);
 
         mNewsListSrc = getIntent().getStringExtra("imgsrc");
@@ -225,7 +226,7 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.fab) {
+        if (v.getId() == R.id.fab_pic) {
             if (mFab.getTag() != null && mFab.getTag() instanceof String) {
                 Intent intent = new Intent(this, VideoPlayActivity.class);
                 intent.putExtra("videoUrl", (String) mFab.getTag());
