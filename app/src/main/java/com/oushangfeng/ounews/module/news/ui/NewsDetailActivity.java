@@ -10,6 +10,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -57,7 +58,7 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
     private TextView mFromTv;
     private RichText mBodyTv;
 
-    private FloatingActionButton mFab;
+    private FloatingActionButton mFabPic, mFabRead;
 
     private String mNewsListSrc;
     private SinaPhotoDetail mSinaPhotoDetail;
@@ -103,8 +104,10 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
 
         mBodyTv = (RichText) findViewById(R.id.tv_news_detail_body);
 
-        mFab = (FloatingActionButton) findViewById(R.id.fab_pic);
-        mFab.setOnClickListener(this);
+        mFabPic = (FloatingActionButton) findViewById(R.id.fab_pic);
+        mFabPic.setOnClickListener(this);
+        mFabRead = (FloatingActionButton) findViewById(R.id.fab_reading);
+        mFabRead.setOnClickListener(this);
 
         mNewsListSrc = getIntent().getStringExtra("imgsrc");
 
@@ -120,11 +123,11 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
             final String mp4HdUrl = video.mp4HdUrl;
             final String mp4Url = video.mp4Url;
             if (!TextUtils.isEmpty(mp4HdUrl)) {
-                mFab.setImageResource(R.drawable.ic_play_normal);
-                mFab.setTag(mp4HdUrl);
+                mFabPic.setImageResource(R.drawable.ic_play_normal);
+                mFabPic.setTag(mp4HdUrl);
             } else if (!TextUtils.isEmpty(mp4Url)) {
-                mFab.setImageResource(R.drawable.ic_play_normal);
-                mFab.setTag(mp4Url);
+                mFabPic.setImageResource(R.drawable.ic_play_normal);
+                mFabPic.setTag(mp4Url);
             }
 
         }
@@ -168,7 +171,7 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
                 //                        .diskCacheStrategy(DiskCacheStrategy.ALL).error(R.drawable.ic_fail).into(mNewsImageView);
             }
 
-            if (mFab.getTag() == null) {
+            if (mFabPic.getTag() == null) {
                 // 以下将数据封装成新浪需要的格式，用于点击跳转到图片浏览
                 mSinaPhotoDetail = new SinaPhotoDetail();
                 mSinaPhotoDetail.data = new SinaPhotoDetail.SinaPhotoDetailDataEntity();
@@ -227,9 +230,10 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.fab_pic) {
-            if (mFab.getTag() != null && mFab.getTag() instanceof String) {
+            //显示图片新闻
+            if (mFabPic.getTag() != null && mFabPic.getTag() instanceof String) {
                 Intent intent = new Intent(this, VideoPlayActivity.class);
-                intent.putExtra("videoUrl", (String) mFab.getTag());
+                intent.putExtra("videoUrl", (String) mFabPic.getTag());
                 intent.putExtra("videoName", mTitleTv.getText().toString());
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeScaleUpAnimation(v, v.getWidth() / 2, v.getHeight() / 2, 0, 0);
                 ActivityCompat.startActivity(this, intent, options.toBundle());
@@ -244,6 +248,17 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
                 }
             }
         }
+        else if(v.getId() == R.id.fab_reading){
+            //...语音读出新闻
+            toast("语音读出新闻，尚未完成");
+        }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.add_to_collection) {
+            toast("收藏功能尚未完成");
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".module.news.ui.NewsDetailActivity">
     <item
-        android:id="@+id/action_channel_manage"
+        android:id="@+id/add_to_collection"
         android:icon="@drawable/ic_dvr_white"
         android:orderInCategory="100"
         android:title="@string/news_collection"
