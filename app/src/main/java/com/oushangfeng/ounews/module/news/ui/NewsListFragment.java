@@ -182,7 +182,7 @@ public class NewsListFragment extends BaseFragment<INewsListPresenter> implement
                     toast("此新闻浏览不了哎╮(╯Д╰)╭");
                     return;
                 }
-
+                //mRecyclerView.
                 // 跳转到新闻详情
                 if (!TextUtils.isEmpty(mAdapter.getData().get(position).digest)) {
                     Intent intent = new Intent(getActivity(), NewsDetailActivity.class);

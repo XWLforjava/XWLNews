@@ -1,6 +1,7 @@
 package com.oushangfeng.ounews.base;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -105,6 +106,9 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
                     public void onClick(View v) {
                         if (holder.getLayoutPosition() != RecyclerView.NO_POSITION) {
                             try {
+                                holder.getTextView(R.id.tv_news_summary_title).setTextColor(Color.GRAY);
+                                holder.getTextView(R.id.tv_news_summary_digest).setTextColor(Color.GRAY);
+                                holder.getTextView(R.id.tv_news_summary_ptime).setTextColor(Color.GRAY);
                                 mClickListener.onItemClick(v, holder.getLayoutPosition());
                             } catch (IndexOutOfBoundsException e) {
                                 e.printStackTrace();
@@ -272,6 +276,5 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
     public void enableLoadMore(Boolean enableLoadMore) {
         mEnableLoadMore = enableLoadMore;
     }
-
 
 }

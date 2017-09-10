@@ -79,7 +79,7 @@ public class NewsActivity extends BaseActivity<INewsPresenter> implements INewsV
 
         List<BaseFragment> fragments = new ArrayList<>();
         final List<String> title = new ArrayList<>();
-
+        //获取选中的chanels
         if (newsChannels != null) {
             // 有除了固定的其他频道被选中，添加
             for (NewsChannelTable news : newsChannels) {

@@ -15,6 +15,7 @@ import rx.Observable;
 import rx.Subscription;
 import rx.functions.Func1;
 import rx.functions.Func2;
+import xwlnews.News;
 
 /**
  * ClassName: INewsListInteractorImpl<p>
@@ -27,6 +28,7 @@ import rx.functions.Func2;
 public class INewsListInteractorImpl implements INewsListInteractor<List<NeteastNewsSummary>> {
 
     @Override
+
     public Subscription requestNewsList(final RequestCallback<List<NeteastNewsSummary>> callback, String type, final String id, int startPage) {
         KLog.e("新闻列表：" + type + ";" + id);
         return RetrofitManager.getInstance(HostType.NETEASE_NEWS_VIDEO)
@@ -52,3 +54,5 @@ public class INewsListInteractorImpl implements INewsListInteractor<List<Neteast
                 }).subscribe(new BaseSubscriber<>(callback));
     }
 }
+
+
