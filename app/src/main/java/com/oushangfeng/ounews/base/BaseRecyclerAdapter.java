@@ -106,6 +106,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
                     public void onClick(View v) {
                         if (holder.getLayoutPosition() != RecyclerView.NO_POSITION) {
                             try {
+                                //set gray flag
                                 holder.getTextView(R.id.tv_news_summary_title).setTextColor(Color.GRAY);
                                 holder.getTextView(R.id.tv_news_summary_digest).setTextColor(Color.GRAY);
                                 holder.getTextView(R.id.tv_news_summary_ptime).setTextColor(Color.GRAY);
