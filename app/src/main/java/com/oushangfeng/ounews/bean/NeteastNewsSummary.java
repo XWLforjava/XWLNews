@@ -101,4 +101,6 @@ public class NeteastNewsSummary {
         @JsonProperty("imgsrc")
         public String imgsrc;
     }
+
+    public boolean hasread = false;
 }

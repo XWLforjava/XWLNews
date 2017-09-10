@@ -2,6 +2,7 @@ package com.oushangfeng.ounews.module.news.ui;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -159,6 +160,17 @@ public class NewsListFragment extends BaseFragment<INewsListPresenter> implement
                 GlideUtils.loadDefault(item.imgsrc, holder.getImageView(R.id.iv_news_summary_photo), null, null, DiskCacheStrategy.RESULT);
                 //                Glide.with(getActivity()).load(item.imgsrc).asBitmap().animate(R.anim.image_load).diskCacheStrategy(DiskCacheStrategy.RESULT)
                 //                        .placeholder(R.drawable.ic_loading).error(R.drawable.ic_fail).into(holder.getImageView(R.id.iv_news_summary_photo));
+                //add by lcy
+                if(item.hasread == true){
+                    holder.getTextView(R.id.tv_news_summary_title).setTextColor(Color.GRAY);
+                    holder.getTextView(R.id.tv_news_summary_digest).setTextColor(Color.GRAY);
+                    holder.getTextView(R.id.tv_news_summary_ptime).setTextColor(Color.GRAY);
+                }
+                else{
+                    holder.getTextView(R.id.tv_news_summary_title).setTextColor(Color.BLACK);
+                    holder.getTextView(R.id.tv_news_summary_digest).setTextColor(Color.BLACK);
+                    holder.getTextView(R.id.tv_news_summary_ptime).setTextColor(Color.BLACK);
+                }
                 holder.getTextView(R.id.tv_news_summary_title).setText(item.title);
                 holder.getTextView(R.id.tv_news_summary_digest).setText(item.digest);
                 holder.getTextView(R.id.tv_news_summary_ptime).setText(item.ptime);
@@ -182,7 +194,10 @@ public class NewsListFragment extends BaseFragment<INewsListPresenter> implement
                     toast("此新闻浏览不了哎╮(╯Д╰)╭");
                     return;
                 }
-                //mRecyclerView.
+                //add by lcy: for gray flag
+                mAdapter.getData().get(position).hasread = true;
+
+
                 // 跳转到新闻详情
                 if (!TextUtils.isEmpty(mAdapter.getData().get(position).digest)) {
                     Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
