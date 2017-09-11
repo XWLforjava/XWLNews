@@ -117,7 +117,8 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
 
     @Override
     public void initNewsDetail(final NeteastNewsDetail data) {
-
+        //lcy: remove videos
+        /*
         if (data.video != null && data.video.size() > 0) {
             final NeteastNewsDetail.VideoEntity video = data.video.get(0);
             final String mp4HdUrl = video.mp4HdUrl;
@@ -131,6 +132,8 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
             }
 
         }
+        */
+
 
         if (data.img != null && data.img.size() > 0) {
             // 设置tag用于点击跳转浏览图片列表的时候判断是否有图片可供浏览
@@ -250,7 +253,8 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
         }
         else if(v.getId() == R.id.fab_reading){
             //...语音读出新闻
-            toast("语音读出新闻，尚未完成");
+            toast(mBodyTv.getText().toString());
+            //toast("语音读出新闻，尚未完成");
         }
     }
 
@@ -258,6 +262,9 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.add_to_collection) {
             toast("收藏功能尚未完成");
+        }
+        else if(item.getItemId() == R.id.menu_share){
+            toast("分享功能尚未完成");
         }
         return super.onOptionsItemSelected(item);
     }

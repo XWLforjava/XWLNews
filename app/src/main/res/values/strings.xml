@@ -192,6 +192,9 @@
     <string name="VideoView_player_AndroidMediaPlayer">Player: AndroidMediaPlayer</string>
     <string name="VideoView_player_IjkMediaPlayer">Player: IjkMediaPlayer</string>
     <string name="VideoView_player_IjkExoMediaPlayer">Player: IjkExoMediaPlayer</string>
+    <string name="title_activity_news_collection">NewsCollectionActivity</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity_news_collections">NewsCollectionsActivity</string>
 
 
 </resources>
