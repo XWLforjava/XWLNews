@@ -14,7 +14,7 @@ public class NewsDetail {
     private String seggedPListOfContent[];
     private HashMap<String, Integer> persons;
     private HashMap<String, Integer> locations;
-    private String organizations[];
+    private HashMap<String, Integer> organizations;
     private HashMap<String, Double> keywords;
     private int wordCountOfTitle;
     private int wordCountOfContent;
@@ -53,7 +53,7 @@ public class NewsDetail {
         return locations;
     }
 
-    public String[] getOrganizations() {
+    public HashMap<String, Integer> getOrganizations() {
         return organizations;
     }
 
@@ -166,9 +166,12 @@ public class NewsDetail {
         }
 
         organizationsArray = json.getJSONArray("organizations");
-        organizations = new String[organizationsArray.size()];
-        for (int i = 0; i < organizations.length; i++)
-            organizations[i] = organizationsArray.getString(i);
+        organizations = new HashMap<>();
+        for (int i = 0; i < organizationsArray.size(); i++)
+        {
+            JSONObject t = organizationsArray.getJSONObject(i);
+            organizations.put(t.getString("word"), t.getInt("count"));
+        }
 
         keywordsArray = json.getJSONArray("Keywords");
         keywords = new HashMap<>();
