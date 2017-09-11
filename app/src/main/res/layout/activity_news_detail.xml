@@ -96,6 +96,7 @@
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end|left"/>
 
+
     <com.oushangfeng.ounews.widget.ThreePointLoadingView
         android:id="@+id/tpl_view"
         android:layout_width="match_parent"
