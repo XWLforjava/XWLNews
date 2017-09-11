@@ -1,11 +1,14 @@
 package com.oushangfeng.ounews.http.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.oushangfeng.ounews.bean.NeteastNewsDetail;
 import com.oushangfeng.ounews.bean.NeteastNewsSummary;
 import com.oushangfeng.ounews.bean.NeteastVideoSummary;
 import com.oushangfeng.ounews.bean.SinaPhotoDetail;
 import com.oushangfeng.ounews.bean.SinaPhotoList;
 import com.oushangfeng.ounews.bean.WeatherInfo;
+import com.oushangfeng.ounews.bean.TsinghuaNewsDetail;
+import com.oushangfeng.ounews.bean.TsinghuaNewsSummary;
 
 import java.util.List;
 import java.util.Map;
@@ -48,6 +51,17 @@ public interface NewsService {
     @GET("nc/article/{postId}/full.html")
     Observable<Map<String, NeteastNewsDetail>> getNewsDetail(
             @Path("postId") String postId);
+
+
+    @GET("action/query/latest?pageNo={pageNo}&pageSize={pageSize}&category={category}")
+    Observable<JsonNode> getTsinghuaNewsList(
+            @Query("pageNo") int pageNo,
+            @Query("pageSize") int pageSize,
+            @Query("category") int category);
+
+    @GET("action/query/detail?newsId={newsId}")
+    Observable<TsinghuaNewsDetail> getTsinghuaNewsDetail(
+            @Path("newsId") String newsId);
 
     /**
      * 新浪图片新闻列表 例子：http://api.sina.cn/sinago/list.json?channel=hdpic_pretty&adid=4ad30dabe134695c3b7c3a65977d7e72&wm=b207&from=6042095012&chwm=12050_0001&oldchwm=12050_0001&imei=867064013906290&uid=802909da86d9f5fc&p=1

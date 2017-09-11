@@ -3,6 +3,7 @@ package com.oushangfeng.ounews.http.manager;
 
 import android.util.SparseArray;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.oushangfeng.ounews.app.App;
 import com.oushangfeng.ounews.base.BaseSchedulerTransformer;
 import com.oushangfeng.ounews.bean.NeteastNewsDetail;
@@ -10,6 +11,7 @@ import com.oushangfeng.ounews.bean.NeteastNewsSummary;
 import com.oushangfeng.ounews.bean.NeteastVideoSummary;
 import com.oushangfeng.ounews.bean.SinaPhotoDetail;
 import com.oushangfeng.ounews.bean.SinaPhotoList;
+import com.oushangfeng.ounews.bean.TsinghuaNewsDetail;
 import com.oushangfeng.ounews.bean.WeatherInfo;
 import com.oushangfeng.ounews.http.Api;
 import com.oushangfeng.ounews.http.HostType;
@@ -190,6 +192,10 @@ public class RetrofitManager {
         return mNewsService.getNewsList(type, id, startPage).compose(new BaseSchedulerTransformer<Map<String, List<NeteastNewsSummary>>>());
     }
 
+    public Observable<JsonNode> getTsinghuaNewsListObservable(int pageNo, int pageSize, int category) {
+        return mNewsService.getTsinghuaNewsList(pageNo, pageSize, category).compose(new BaseSchedulerTransformer<JsonNode>());
+    }
+
     /**
      * 网易新闻详情：例子：http://c.m.163.com/nc/article/BG6CGA9M00264N2N/full.html
      *
@@ -198,6 +204,10 @@ public class RetrofitManager {
      */
     public Observable<Map<String, NeteastNewsDetail>> getNewsDetailObservable(String postId) {
         return mNewsService.getNewsDetail(postId).compose(new BaseSchedulerTransformer<Map<String, NeteastNewsDetail>>());
+    }
+
+    public Observable<TsinghuaNewsDetail> getTsinghuaNewsDetailObservable(String newsId) {
+        return mNewsService.getTsinghuaNewsDetail(newsId).compose(new BaseSchedulerTransformer<TsinghuaNewsDetail>());
     }
 
     /**

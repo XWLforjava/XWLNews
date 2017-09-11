@@ -17,6 +17,8 @@ public class Api {
     // 新闻详情
     public static final String NEWS_DETAIL = NETEAST_HOST + "nc/article/";
 
+    public static final String TSINGHUA_HOST = "http://166.111.68.66:2042/news/";
+
     // 头条
     public static final String HEADLINE_TYPE = "headline";
     public static final String HEADLINE_ID = "T1348647909107";
@@ -160,6 +162,8 @@ public class Api {
                 return Api.SINA_PHOTO_HOST;
             case HostType.WEATHER_INFO:
                 return Api.WEATHER_HOST;
+            case HostType.TSINGHUA_NEWS:
+                return Api.TSINGHUA_HOST;
         }
         return "";
     }

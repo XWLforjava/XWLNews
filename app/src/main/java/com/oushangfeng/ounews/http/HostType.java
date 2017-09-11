@@ -18,7 +18,7 @@ public class HostType {
     /**
      * 多少种Host类型
      */
-    public static final int TYPE_COUNT = 3;
+    public static final int TYPE_COUNT = 4;
 
     /**
      * 网易新闻视频的host
@@ -38,10 +38,13 @@ public class HostType {
     @HostTypeChecker
     public static final int WEATHER_INFO = 3;
 
+    @HostTypeChecker
+    public static final int TSINGHUA_NEWS = 4;
+
     /**
      * 替代枚举的方案，使用IntDef保证类型安全
      */
-    @IntDef({NETEASE_NEWS_VIDEO, SINA_NEWS_PHOTO, WEATHER_INFO})
+    @IntDef({NETEASE_NEWS_VIDEO, SINA_NEWS_PHOTO, WEATHER_INFO, TSINGHUA_NEWS})
     @Retention(RetentionPolicy.SOURCE)
     public @interface HostTypeChecker {
 
