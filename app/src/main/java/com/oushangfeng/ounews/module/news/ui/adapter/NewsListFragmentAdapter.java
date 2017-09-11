@@ -1,4 +1,4 @@
-package com.oushangfeng.ounews.base;
+package com.oushangfeng.ounews.module.news.ui.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -14,6 +14,7 @@ import com.oushangfeng.ounews.R;
 import com.oushangfeng.ounews.callback.OnEmptyClickListener;
 import com.oushangfeng.ounews.callback.OnItemClickListener;
 import com.oushangfeng.ounews.callback.OnLoadMoreListener;
+import com.oushangfeng.ounews.base.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ import java.util.List;
  * UpdateUser:<p>
  * UpdateDate:<p>
  */
-public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRecyclerViewHolder> {
+public abstract class NewsListFragmentAdapter<T> extends RecyclerView.Adapter<BaseRecyclerViewHolder> {
 
     public static final int TYPE_HEADER = 1;
     public static final int TYPE_ITEM = 2;
@@ -52,11 +53,11 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
 
     private Boolean mEnableLoadMore;
 
-    public BaseRecyclerAdapter(Context context, List<T> data) {
+    public NewsListFragmentAdapter(Context context, List<T> data) {
         this(context, data, null);
     }
 
-    public BaseRecyclerAdapter(Context context, List<T> data, RecyclerView.LayoutManager layoutManager) {
+    public NewsListFragmentAdapter(Context context, List<T> data, RecyclerView.LayoutManager layoutManager) {
         mContext = context;
         mLayoutManager = layoutManager;
         mData = data == null ? new ArrayList<T>() : data;
@@ -107,9 +108,9 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
                         if (holder.getLayoutPosition() != RecyclerView.NO_POSITION) {
                             try {
                                 //set gray flag
-                                //holder.getTextView(R.id.tv_news_summary_title).setTextColor(Color.GRAY);
-                                //holder.getTextView(R.id.tv_news_summary_digest).setTextColor(Color.GRAY);
-                                //holder.getTextView(R.id.tv_news_summary_ptime).setTextColor(Color.GRAY);
+                                holder.getTextView(R.id.tv_news_summary_title).setTextColor(Color.GRAY);
+                                holder.getTextView(R.id.tv_news_summary_digest).setTextColor(Color.GRAY);
+                                holder.getTextView(R.id.tv_news_summary_ptime).setTextColor(Color.GRAY);
                                 mClickListener.onItemClick(v, holder.getLayoutPosition());
                             } catch (IndexOutOfBoundsException e) {
                                 e.printStackTrace();

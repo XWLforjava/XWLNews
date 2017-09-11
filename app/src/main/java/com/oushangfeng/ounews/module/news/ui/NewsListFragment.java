@@ -19,6 +19,7 @@ import com.oushangfeng.ounews.base.BaseFragment;
 import com.oushangfeng.ounews.base.BaseRecyclerAdapter;
 import com.oushangfeng.ounews.base.BaseRecyclerViewHolder;
 import com.oushangfeng.ounews.base.BaseSpacesItemDecoration;
+import com.oushangfeng.ounews.module.news.ui.adapter.NewsListFragmentAdapter;
 import com.oushangfeng.ounews.bean.NeteastNewsSummary;
 import com.oushangfeng.ounews.bean.SinaPhotoDetail;
 import com.oushangfeng.ounews.callback.OnEmptyClickListener;
@@ -58,7 +59,7 @@ public class NewsListFragment extends BaseFragment<INewsListPresenter> implement
     protected String mNewsId;
     protected String mNewsType;
 
-    private BaseRecyclerAdapter<NeteastNewsSummary> mAdapter;
+    private NewsListFragmentAdapter<NeteastNewsSummary> mAdapter;
     private RecyclerView mRecyclerView;
     private RefreshLayout mRefreshLayout;
 
@@ -149,7 +150,7 @@ public class NewsListFragment extends BaseFragment<INewsListPresenter> implement
 
     private void initNewsList(final List<NeteastNewsSummary> data) {
         // mAdapter为空肯定为第一次进入状态
-        mAdapter = new BaseRecyclerAdapter<NeteastNewsSummary>(getActivity(), data) {
+        mAdapter = new NewsListFragmentAdapter<NeteastNewsSummary>(getActivity(), data) {
             @Override
             public int getItemLayoutId(int viewType) {
                 return R.layout.item_news_summary;

@@ -49,7 +49,7 @@
 
 
     <style name="BaseAppTheme.AppTheme">
-       <!-- <item name="android:windowAnimationStyle">@style/noAnimation</item>-->
+        <!-- <item name="android:windowAnimationStyle">@style/noAnimation</item>-->
     </style>
 
     <style name="BaseAppTheme.LauncherAppTheme">
@@ -125,9 +125,9 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <!-- ToolBar主题，menu的item字体为白色 -->
     <style name="ToolBarStyle" parent="@style/Widget.AppCompat.ActionBar">
@@ -159,10 +159,14 @@
 
     <!--去掉所有跳转动画-->
     <style name="noAnimation">
-        <item name="android:activityOpenEnterAnimation">@null</item><!--当启动一个新的界面时，启动的界面使用的动画（进入屏幕）-->
-        <item name="android:activityOpenExitAnimation">@null</item><!--当启动一个新的界面时，之前的界面使用的动画（退出屏幕）-->
-        <item name="android:activityCloseEnterAnimation">@null</item><!--当关闭当前的界面时,进来的界面使用的动画（进入屏幕）-->
-        <item name="android:activityCloseExitAnimation">@null</item><!--当关闭当前的界面时,当前关闭的界面使用的动画（退出屏幕）-->
+        <item name="android:activityOpenEnterAnimation">@null
+        </item><!--当启动一个新的界面时，启动的界面使用的动画（进入屏幕）-->
+        <item name="android:activityOpenExitAnimation">@null
+        </item><!--当启动一个新的界面时，之前的界面使用的动画（退出屏幕）-->
+        <item name="android:activityCloseEnterAnimation">@null
+        </item><!--当关闭当前的界面时,进来的界面使用的动画（进入屏幕）-->
+        <item name="android:activityCloseExitAnimation">@null
+        </item><!--当关闭当前的界面时,当前关闭的界面使用的动画（退出屏幕）-->
         <item name="android:taskOpenEnterAnimation">@null</item><!--当在新的栈启动界面，新的栈启动的界面使用的动画（进入屏幕）-->
         <item name="android:taskOpenExitAnimation">@null</item><!--当在新的栈启动界面，旧的栈的界面使用的动画（退出屏幕）-->
         <item name="android:taskCloseEnterAnimation">@null</item><!---->
@@ -180,8 +184,11 @@
     </style>
 
     <style name="MediaController_SeekBar" parent="android:Widget.SeekBar">
-        <item name="android:progressDrawable">@drawable/scrubber_progress_horizontal_holo_dark</item>
-        <item name="android:indeterminateDrawable">@drawable/scrubber_progress_horizontal_holo_dark</item>
+        <item name="android:progressDrawable">@drawable/scrubber_progress_horizontal_holo_dark
+        </item>
+        <item name="android:indeterminateDrawable">
+            @drawable/scrubber_progress_horizontal_holo_dark
+        </item>
         <item name="android:minHeight">13dip</item>
         <item name="android:maxHeight">13dip</item>
         <item name="android:thumb">@drawable/scrubber_control_selector_holo</item>
@@ -203,5 +210,9 @@
         <item name="android:windowExitAnimation">@anim/pop_hide_anim</item>
         <!-- 指定消失的动画xml -->
     </style>
+
+    <style name="BaseAppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="BaseAppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

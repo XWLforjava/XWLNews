@@ -33,6 +33,7 @@ import com.oushangfeng.ounews.annotation.ActivityFragmentInject;
 import com.oushangfeng.ounews.app.App;
 import com.oushangfeng.ounews.app.AppManager;
 import com.oushangfeng.ounews.module.news.ui.NewsActivity;
+import com.oushangfeng.ounews.module.news.ui.NewsCollectionsActivity;
 import com.oushangfeng.ounews.module.photo.ui.PhotoActivity;
 import com.oushangfeng.ounews.module.settings.ui.SettingsActivity;
 import com.oushangfeng.ounews.module.video.ui.VideoActivity;
@@ -319,7 +320,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
                         mClass = PhotoActivity.class;
                         break;
                     case R.id.action_collection:
-                        toast("收藏夹界面尚未写好");
+                        mClass = NewsCollectionsActivity.class;
+                        //toast("收藏夹界面尚未写好");
                         break;
                     case R.id.action_settings:
                         mClass = SettingsActivity.class;

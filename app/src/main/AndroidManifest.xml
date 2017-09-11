@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="com.oushangfeng.ounews"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.oushangfeng.ounews">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:name=".app.App"
@@ -20,7 +19,7 @@
         android:theme="@style/BaseAppTheme">
         <meta-data
             android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
-            android:value="GlideModule"/>
+            android:value="GlideModule" />
 
         <activity
             android:name=".module.news.ui.NewsActivity"
@@ -29,9 +28,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/BaseAppTheme.LauncherAppTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
@@ -39,44 +38,42 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_video"
             android:screenOrientation="portrait"
-            android:theme="@style/BaseAppTheme.AppTheme">
-        </activity>
+            android:theme="@style/BaseAppTheme.AppTheme" />
         <activity
             android:name=".module.photo.ui.PhotoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/BaseAppTheme.AppTheme">
-        </activity>
+            android:theme="@style/BaseAppTheme.AppTheme" />
         <activity
             android:name=".module.settings.ui.SettingsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/BaseAppTheme.AppTheme">
-        </activity>
+            android:theme="@style/BaseAppTheme.AppTheme" />
         <activity
             android:name=".module.news.ui.NewsDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/BaseAppTheme.AppTheme">
-        </activity>
+            android:theme="@style/BaseAppTheme.AppTheme" />
         <activity
             android:name=".module.news.ui.NewsChannelActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_news_channel_manage"
             android:screenOrientation="portrait"
-            android:theme="@style/BaseAppTheme.AppTheme">
-        </activity>
+            android:theme="@style/BaseAppTheme.AppTheme" />
         <activity
             android:name=".module.photo.ui.PhotoDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/BaseAppTheme.AppTheme">
-        </activity>
+            android:theme="@style/BaseAppTheme.AppTheme" />
         <activity
             android:name=".module.video.ui.VideoPlayActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
-            android:theme="@style/BaseAppTheme.AppTheme">
-        </activity>
+            android:theme="@style/BaseAppTheme.AppTheme" />
+        <activity android:name=".module.news.ui.NewsCollectionActivity" />
+        <activity
+            android:name=".module.news.ui.NewsCollectionsActivity"
+            android:label="@string/title_activity_news_collections"
+            android:theme="@style/BaseAppTheme"></activity>
     </application>
 
 </manifest>
