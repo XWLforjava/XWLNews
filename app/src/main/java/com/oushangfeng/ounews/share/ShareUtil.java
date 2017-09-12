@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 /**
  *分享到朋友圈接口：public void shareToWXCircle(String content, File file)
- * content 为文字，file 为图片（本地）地址生成的 File
+ * content 为文字，file 为图片（本地）地址生成的 File, 使用url 的接口未实现
  */
 
 public class ShareUtil {  
