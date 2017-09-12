@@ -85,6 +85,7 @@
         <item>CBA</item>
         <item>消息</item> -->
 
+        <item>全部</item>
         <item>科技</item>
         <item>教育</item>
         <item>军事</item>
@@ -138,6 +139,7 @@
     </string-array>-->
 
     <integer-array name="category">
+        <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>

@@ -41,6 +41,9 @@ public class INewsInteractorImpl implements INewsInteractor<List<NewsChannelTabl
 
                 final NewsChannelTableDao dao = ((App) App.getContext()).getDaoSession()
                         .getNewsChannelTableDao();
+                //SpUtil.writeBoolean("initDb", false);
+                //dao.deleteAll();
+                //修改数据库时需要加入以上两行 xys
                 KLog.e("初始化了数据库了吗？ " + SpUtil.readBoolean("initDb"));
                 if (!SpUtil.readBoolean("initDb")) {
 
@@ -53,8 +56,8 @@ public class INewsInteractorImpl implements INewsInteractor<List<NewsChannelTabl
                     for (int i = 0; i < channelName.size(); i++) {
                         NewsChannelTable table = new NewsChannelTable(channelName.get(i),
                                 category.get(i), "1", i <= 2,
-                                // 前三是固定死的，默认选中状态
-                                i, i <= 2);
+                                // 改为第一个固定
+                                i, i == 0);
                         dao.insert(table);
                     }
                     SpUtil.writeBoolean("initDb", true);
