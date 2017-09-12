@@ -10,6 +10,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +20,15 @@ import android.widget.TextView;
 
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oushangfeng.ounews.R;
 import com.oushangfeng.ounews.annotation.ActivityFragmentInject;
 import com.oushangfeng.ounews.base.BaseActivity;
 import com.oushangfeng.ounews.bean.NeteastNewsDetail;
 import com.oushangfeng.ounews.bean.SinaPhotoDetail;
 import com.oushangfeng.ounews.bean.TsinghuaNewsDetail;
+import com.oushangfeng.ounews.bean.TsinghuaNewsSummary;
+import com.oushangfeng.ounews.collection.CollectionManager;
 import com.oushangfeng.ounews.module.news.presenter.INewsDetailPresenter;
 import com.oushangfeng.ounews.module.news.presenter.INewsDetailPresenterImpl;
 import com.oushangfeng.ounews.module.news.view.INewsDetailView;
@@ -35,6 +39,7 @@ import com.oushangfeng.ounews.utils.MeasureUtil;
 import com.oushangfeng.ounews.utils.ViewUtil;
 import com.oushangfeng.ounews.widget.ThreePointLoadingView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import zhou.widget.RichText;
@@ -58,11 +63,15 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
     private TextView mTitleTv;
     private TextView mFromTv;
     private RichText mBodyTv;
+    private Toolbar mToolbar;
+    private Menu mMenu;
 
     private FloatingActionButton mFabPic, mFabRead;
 
     private String mNewsListSrc;
     private SinaPhotoDetail mSinaPhotoDetail;
+
+    private TsinghuaNewsSummary mSummary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,11 +90,10 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
 
     @Override
     protected void initView() {
-
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
             // 4.4设置全屏并动态修改Toolbar的位置实现类5.0效果，确保布局延伸到状态栏的效果
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) toolbar.getLayoutParams();
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) mToolbar.getLayoutParams();
             mlp.topMargin = MeasureUtil.getStatusBarHeight(this);
         }
 
@@ -113,6 +121,13 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
         mNewsListSrc = getIntent().getStringExtra("imgsrc");
 
         mPresenter = new INewsDetailPresenterImpl(this, getIntent().getStringExtra("postid"));
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            mSummary = mapper.readValue(getIntent().getStringExtra("summary"), TsinghuaNewsSummary.class);
+        }catch (IOException e){
+
+        }
 
     }
 
@@ -263,11 +278,32 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.add_to_collection) {
-            toast("收藏功能尚未完成");
+            if(CollectionManager.getInstance().checkInCollections(mSummary)){
+                CollectionManager.getInstance().deleteCollection(mSummary);
+                mMenu.getItem(0).setTitle(R.string.add_to_collection);
+            }
+            else{
+                CollectionManager.getInstance().addCollection(mSummary);
+                mMenu.getItem(0).setTitle(R.string.delete_from_collection);
+            }
         }
         else if(item.getItemId() == R.id.menu_share){
             toast("分享功能尚未完成");
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(getmMenuId(), menu);
+        mMenu = mToolbar.getMenu();
+        if(CollectionManager.getInstance().checkInCollections(mSummary)){
+            mMenu.getItem(0).setTitle(R.string.delete_from_collection);
+        }
+        else{
+            mMenu.getItem(0).setTitle(R.string.add_to_collection);
+        }
+        return true;
+    }
+
 }

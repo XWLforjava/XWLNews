@@ -6,10 +6,11 @@ package com.oushangfeng.ounews.bean;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TsinghuaNewsSummary {
+public class TsinghuaNewsSummary implements Serializable {
     @JsonProperty("newsClassTag")
     public String classTag;
     @JsonProperty("news_ID")

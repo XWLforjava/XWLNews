@@ -25,7 +25,6 @@ import java.util.List;
 public class INewsCollectionsPresenterImpl extends BasePresenterImpl<INewsCollectionsView, List<TsinghuaNewsSummary>> implements INewsCollectionsPresenter {
 
     private INewsCollectionsInteractor<List<TsinghuaNewsSummary>> mNewsCollectionsInteractor;
-    private int mPageNo;
 
     private boolean mIsRefresh = true;
     private boolean mHasInit;
@@ -33,8 +32,7 @@ public class INewsCollectionsPresenterImpl extends BasePresenterImpl<INewsCollec
     public INewsCollectionsPresenterImpl(INewsCollectionsView newsListView) {
         super(newsListView);
         mNewsCollectionsInteractor = new INewsCollectionsInteractorImpl();
-        mPageNo = 1;
-        mSubscription = mNewsCollectionsInteractor.requestNewsList(this, mPageNo, 20, 0);
+        mSubscription = mNewsCollectionsInteractor.requestNewsList(this);
     }
 
     @Override
@@ -54,7 +52,6 @@ public class INewsCollectionsPresenterImpl extends BasePresenterImpl<INewsCollec
     @Override
     public void requestSuccess(List<TsinghuaNewsSummary> data) {
         if (data != null) {
-            mPageNo += 20;
         }
         mView.updateNewsList(data, "", mIsRefresh ? DataLoadType.TYPE_REFRESH_SUCCESS : DataLoadType.TYPE_LOAD_MORE_SUCCESS);
 
@@ -62,15 +59,14 @@ public class INewsCollectionsPresenterImpl extends BasePresenterImpl<INewsCollec
 
     @Override
     public void refreshData() {
-        mPageNo = 1;
         mIsRefresh = true;
-        mSubscription = mNewsCollectionsInteractor.requestNewsList(this, mPageNo, 20, 0);
+        mSubscription = mNewsCollectionsInteractor.requestNewsList(this);
     }
 
     @Override
     public void loadMoreData() {
         mIsRefresh = false;
-        mSubscription = mNewsCollectionsInteractor.requestNewsList(this, mPageNo, 20, 0);
+        mSubscription = mNewsCollectionsInteractor.requestNewsList(this);
     }
 
 }

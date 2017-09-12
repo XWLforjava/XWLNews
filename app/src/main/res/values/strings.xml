@@ -4,8 +4,9 @@
     <string name="channel_manage">频道管理</string>
 
     <string name="add_to_collection">添加到收藏夹</string>
+    <string name="delete_from_collection">从收藏夹移除</string>
     <string name="news_collection">收藏夹</string>
-    <string name="share">分享</string>
+    <string name="share">分享到朋友圈</string>
 
     <!-- 左边页面 -->
     <string name="photo">图片</string>

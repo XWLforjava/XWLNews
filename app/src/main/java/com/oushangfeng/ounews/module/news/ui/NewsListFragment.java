@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oushangfeng.ounews.R;
 import com.oushangfeng.ounews.annotation.ActivityFragmentInject;
 import com.oushangfeng.ounews.base.BaseFragment;
@@ -208,6 +209,17 @@ public class NewsListFragment extends BaseFragment<INewsListPresenter> implement
                     Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
                     intent.putExtra("postid", mAdapter.getData().get(position).id);
                     intent.putExtra("imgsrc", mAdapter.getData().get(position).pictures);
+
+
+                    ObjectMapper mapper = new ObjectMapper();
+                    // Convert object to JSON string
+                    String json = "";
+                    try {
+                        json = mapper.writeValueAsString(mAdapter.getData().get(position));
+                    }catch (Exception e){
+                    }
+                    intent.putExtra("summary",json);
+
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), view.findViewById(R.id.iv_news_summary_photo), "photos");
                         getActivity().startActivity(intent, options.toBundle());

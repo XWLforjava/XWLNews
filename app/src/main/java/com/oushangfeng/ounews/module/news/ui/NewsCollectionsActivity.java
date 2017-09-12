@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oushangfeng.ounews.R;
 import com.oushangfeng.ounews.annotation.ActivityFragmentInject;
 import com.oushangfeng.ounews.app.AppManager;
@@ -90,7 +91,6 @@ public class NewsCollectionsActivity extends BaseActivity<BasePresenter> impleme
 
         mLoadingView = (ThreePointLoadingView) findViewById(R.id.tpl_view2);
         mLoadingView.setOnClickListener(this);
-        //不知道为什么用不了
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view2);
 
@@ -190,6 +190,16 @@ public class NewsCollectionsActivity extends BaseActivity<BasePresenter> impleme
                     Intent intent = new Intent((Activity)mAdapter.getmContext(), NewsDetailActivity.class);
                     intent.putExtra("postid", mAdapter.getData().get(position).id);
                     intent.putExtra("imgsrc", mAdapter.getData().get(position).pictures);
+
+                    ObjectMapper mapper = new ObjectMapper();
+                    // Convert object to JSON string
+                    String json = "";
+                    try {
+                        json = mapper.writeValueAsString(mAdapter.getData().get(position));
+                    }catch (Exception e){
+                    }
+                    intent.putExtra("summary",json);
+
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity)mAdapter.getmContext(), view.findViewById(R.id.iv_news_summary_photo), "photos");
                         mAdapter.getmContext().startActivity(intent, options.toBundle());

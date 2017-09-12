@@ -569,4 +569,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         });
     }
 
+    protected int getmMenuId(){
+        return mMenuId;
+    }
+
 }
