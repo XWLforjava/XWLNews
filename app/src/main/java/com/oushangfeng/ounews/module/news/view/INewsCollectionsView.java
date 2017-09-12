@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.oushangfeng.ounews.base.BaseView;
 import com.oushangfeng.ounews.bean.NeteastNewsSummary;
+import com.oushangfeng.ounews.bean.TsinghuaNewsSummary;
 import com.oushangfeng.ounews.common.DataLoadType;
 import com.oushangfeng.ounews.greendao.NewsChannelTable;
 
@@ -18,6 +19,6 @@ import java.util.List;
  * UpdateDate: <p>
  */
 public interface INewsCollectionsView extends BaseView {
-    void updateNewsList(List<NeteastNewsSummary> data, @NonNull String errorMsg, @DataLoadType.DataLoadTypeChecker int type);
+    void updateNewsList(List<TsinghuaNewsSummary> data, @NonNull String errorMsg, @DataLoadType.DataLoadTypeChecker int type);
 
 }

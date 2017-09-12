@@ -1,13 +1,18 @@
 package com.oushangfeng.ounews.module.news.model;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oushangfeng.ounews.base.BaseSubscriber;
 import com.oushangfeng.ounews.bean.NeteastNewsSummary;
+import com.oushangfeng.ounews.bean.TsinghuaNewsSummary;
 import com.oushangfeng.ounews.callback.RequestCallback;
 import com.oushangfeng.ounews.http.Api;
 import com.oushangfeng.ounews.http.HostType;
 import com.oushangfeng.ounews.http.manager.RetrofitManager;
 import com.socks.library.KLog;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,36 +30,30 @@ import xwlnews.News;
  * UpdateUser: <p>
  * UpdateDate: <p>
  */
-public class INewsCollectionsInteractorImpl implements INewsCollectionsInteractor<List<NeteastNewsSummary>> {
+public class INewsCollectionsInteractorImpl implements INewsCollectionsInteractor<List<TsinghuaNewsSummary>> {
 
     @Override
 
-    public Subscription requestNewsList(final RequestCallback<List<NeteastNewsSummary>> callback, int startPage) {
-        //KLog.e("新闻列表：" + type + ";" + id);
-        /*
-        return RetrofitManager.getInstance(HostType.NETEASE_NEWS_VIDEO)
-                .getNewsListObservable(startPage)
-                .flatMap(
-                        new Func1<Map<String, List<NeteastNewsSummary>>, Observable<NeteastNewsSummary>>() {
-                            // map得到list转换成item
-                            @Override
-                            public Observable<NeteastNewsSummary> call(Map<String, List<NeteastNewsSummary>> map) {
-                                if (id.equals(Api.HOUSE_ID)) {
-                                    // 房产实际上针对地区的它的id与返回key不同
-                                    return Observable.from(map.get("北京"));
-                                }
-                                return Observable.from(map.get(id));
-                            }
-                        })
-                .toSortedList(new Func2<NeteastNewsSummary, NeteastNewsSummary, Integer>() {
-                    // 按时间先后排序
-                    @Override
-                    public Integer call(NeteastNewsSummary neteastNewsSummary, NeteastNewsSummary neteastNewsSummary2) {
-                        return neteastNewsSummary2.ptime.compareTo(neteastNewsSummary.ptime);
-                    }
-                }).subscribe(new BaseSubscriber<>(callback));
-            */
-        return null;
+    public Subscription requestNewsList(final RequestCallback<List<TsinghuaNewsSummary>> callback, int pageNo, int pageSize, int category) {
+        KLog.e("新闻列表：" + category);
+        return RetrofitManager.getInstance(HostType.TSINGHUA_NEWS)
+                .getTsinghuaNewsListObservable(pageNo, pageSize, category)
+                .map(new Func1<JsonNode, ArrayList<TsinghuaNewsSummary>>() {
+                         @Override
+                         public ArrayList<TsinghuaNewsSummary> call(JsonNode node) {
+                             ObjectMapper mapper = new ObjectMapper();
+                             ArrayList list = null;
+                             try
+                             {
+                                 String s = mapper.writeValueAsString(node.get("list"));
+                                 list = mapper.readValue(s, new TypeReference<ArrayList<TsinghuaNewsSummary>>(){});
+                             }
+                             catch(Exception e){}
+                             return list;
+                         }
+                     }
+                )
+                .subscribe(new BaseSubscriber<>(callback));
     }
 }
 
