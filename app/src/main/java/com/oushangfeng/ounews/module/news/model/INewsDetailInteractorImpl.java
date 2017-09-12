@@ -2,6 +2,7 @@ package com.oushangfeng.ounews.module.news.model;
 
 import com.oushangfeng.ounews.base.BaseSubscriber;
 import com.oushangfeng.ounews.bean.NeteastNewsDetail;
+import com.oushangfeng.ounews.bean.TsinghuaNewsDetail;
 import com.oushangfeng.ounews.callback.RequestCallback;
 import com.oushangfeng.ounews.http.HostType;
 import com.oushangfeng.ounews.http.manager.RetrofitManager;
@@ -19,17 +20,12 @@ import rx.functions.Func1;
  * UpdateUser: <p>
  * UpdateDate: <p>
  */
-public class INewsDetailInteractorImpl implements INewsDetailInteractor<NeteastNewsDetail> {
+public class INewsDetailInteractorImpl implements INewsDetailInteractor<TsinghuaNewsDetail> {
 
     @Override
-    public Subscription requestNewsDetail(final RequestCallback<NeteastNewsDetail> callback, final String id) {
-        return RetrofitManager.getInstance(HostType.NETEASE_NEWS_VIDEO).getNewsDetailObservable(id)
-                .map(new Func1<Map<String, NeteastNewsDetail>, NeteastNewsDetail>() {
-                    @Override
-                    public NeteastNewsDetail call(Map<String, NeteastNewsDetail> map) {
-                        return map.get(id);
-                    }
-                }).subscribe(new BaseSubscriber<>(callback));
+    public Subscription requestNewsDetail(final RequestCallback<TsinghuaNewsDetail> callback, final String id) {
+        return RetrofitManager.getInstance(HostType.TSINGHUA_NEWS).getTsinghuaNewsDetailObservable(id)
+                .subscribe(new BaseSubscriber<>(callback));
     }
 
 }

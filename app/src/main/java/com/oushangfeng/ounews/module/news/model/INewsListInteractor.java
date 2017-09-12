@@ -14,6 +14,6 @@ import rx.Subscription;
  */
 public interface INewsListInteractor<T> {
 
-    Subscription requestNewsList(RequestCallback<T> callback, String type, String id, int startPage);
+    Subscription requestNewsList(RequestCallback<T> callback, int pageNo, int pageSize, int category);
 
 }

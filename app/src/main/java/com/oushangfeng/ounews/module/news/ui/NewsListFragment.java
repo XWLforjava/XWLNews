@@ -19,6 +19,7 @@ import com.oushangfeng.ounews.base.BaseFragment;
 import com.oushangfeng.ounews.base.BaseRecyclerAdapter;
 import com.oushangfeng.ounews.base.BaseRecyclerViewHolder;
 import com.oushangfeng.ounews.base.BaseSpacesItemDecoration;
+import com.oushangfeng.ounews.bean.TsinghuaNewsSummary;
 import com.oushangfeng.ounews.module.news.ui.adapter.NewsListFragmentAdapter;
 import com.oushangfeng.ounews.bean.NeteastNewsSummary;
 import com.oushangfeng.ounews.bean.SinaPhotoDetail;
@@ -59,7 +60,10 @@ public class NewsListFragment extends BaseFragment<INewsListPresenter> implement
     protected String mNewsId;
     protected String mNewsType;
 
-    private NewsListFragmentAdapter<NeteastNewsSummary> mAdapter;
+    protected int mCategory;
+    protected int mPageSize;
+
+    private NewsListFragmentAdapter<TsinghuaNewsSummary> mAdapter;
     private RecyclerView mRecyclerView;
     private RefreshLayout mRefreshLayout;
 
@@ -71,18 +75,18 @@ public class NewsListFragment extends BaseFragment<INewsListPresenter> implement
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mNewsId = getArguments().getString(NEWS_ID);
-            mNewsType = getArguments().getString(NEWS_TYPE);
+            mCategory = getArguments().getInt("category");
+            mPageSize = getArguments().getInt("pageSize");
             mPosition = getArguments().getInt(POSITION);
         }
 
     }
 
-    public static NewsListFragment newInstance(String newsId, String newsType, int position) {
+    public static NewsListFragment newInstance(int category, int position) {
         NewsListFragment fragment = new NewsListFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(NEWS_ID, newsId);
-        bundle.putString(NEWS_TYPE, newsType);
+        bundle.putInt("category", category);
+        bundle.putInt("pageSize", 20);
         bundle.putInt(POSITION, position);
         fragment.setArguments(bundle);
         return fragment;
@@ -98,7 +102,7 @@ public class NewsListFragment extends BaseFragment<INewsListPresenter> implement
 
         mRefreshLayout = (RefreshLayout) fragmentRootView.findViewById(R.id.refresh_layout);
 
-        mPresenter = new INewsListPresenterImpl(this, mNewsId, mNewsType);
+        mPresenter = new INewsListPresenterImpl(this, mPageSize, mCategory);
 
     }
 
@@ -113,7 +117,7 @@ public class NewsListFragment extends BaseFragment<INewsListPresenter> implement
     }
 
     @Override
-    public void updateNewsList(final List<NeteastNewsSummary> data, String errorMsg, @DataLoadType.DataLoadTypeChecker int type) {
+    public void updateNewsList(final List<TsinghuaNewsSummary> data, String errorMsg, @DataLoadType.DataLoadTypeChecker int type) {
 
         if (mAdapter == null) {
             initNewsList(data);
@@ -148,17 +152,17 @@ public class NewsListFragment extends BaseFragment<INewsListPresenter> implement
         }
     }
 
-    private void initNewsList(final List<NeteastNewsSummary> data) {
+    private void initNewsList(final List<TsinghuaNewsSummary> data) {
         // mAdapter为空肯定为第一次进入状态
-        mAdapter = new NewsListFragmentAdapter<NeteastNewsSummary>(getActivity(), data) {
+        mAdapter = new NewsListFragmentAdapter<TsinghuaNewsSummary>(getActivity(), data) {
             @Override
             public int getItemLayoutId(int viewType) {
                 return R.layout.item_news_summary;
             }
 
             @Override
-            public void bindData(BaseRecyclerViewHolder holder, int position, NeteastNewsSummary item) {
-                GlideUtils.loadDefault(item.imgsrc, holder.getImageView(R.id.iv_news_summary_photo), null, null, DiskCacheStrategy.RESULT);
+            public void bindData(BaseRecyclerViewHolder holder, int position, TsinghuaNewsSummary item) {
+                GlideUtils.loadDefault(item.pictures, holder.getImageView(R.id.iv_news_summary_photo), null, null, DiskCacheStrategy.RESULT);
                 //                Glide.with(getActivity()).load(item.imgsrc).asBitmap().animate(R.anim.image_load).diskCacheStrategy(DiskCacheStrategy.RESULT)
                 //                        .placeholder(R.drawable.ic_loading).error(R.drawable.ic_fail).into(holder.getImageView(R.id.iv_news_summary_photo));
                 //add by lcy
@@ -173,8 +177,8 @@ public class NewsListFragment extends BaseFragment<INewsListPresenter> implement
                     holder.getTextView(R.id.tv_news_summary_ptime).setTextColor(Color.BLACK);
                 }
                 holder.getTextView(R.id.tv_news_summary_title).setText(item.title);
-                holder.getTextView(R.id.tv_news_summary_digest).setText(item.digest);
-                holder.getTextView(R.id.tv_news_summary_ptime).setText(item.ptime);
+                holder.getTextView(R.id.tv_news_summary_digest).setText(item.intro);
+                holder.getTextView(R.id.tv_news_summary_ptime).setText(item.time);
             }
         };
 
@@ -187,11 +191,11 @@ public class NewsListFragment extends BaseFragment<INewsListPresenter> implement
                 }
 
                 // imgextra不为空的话，无新闻内容，直接打开图片浏览
-                KLog.e(mAdapter.getData().get(position).title + ";" + mAdapter.getData().get(position).postid);
+                KLog.e(mAdapter.getData().get(position).title + ";" + mAdapter.getData().get(position).id);
 
                 view = view.findViewById(R.id.iv_news_summary_photo);
 
-                if (mAdapter.getData().get(position).postid == null) {
+                if (mAdapter.getData().get(position).id == null) {
                     toast("此新闻浏览不了哎╮(╯Д╰)╭");
                     return;
                 }
@@ -200,10 +204,10 @@ public class NewsListFragment extends BaseFragment<INewsListPresenter> implement
 
 
                 // 跳转到新闻详情
-                if (!TextUtils.isEmpty(mAdapter.getData().get(position).digest)) {
+                if (!TextUtils.isEmpty(mAdapter.getData().get(position).intro)) {
                     Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
-                    intent.putExtra("postid", mAdapter.getData().get(position).postid);
-                    intent.putExtra("imgsrc", mAdapter.getData().get(position).imgsrc);
+                    intent.putExtra("postid", mAdapter.getData().get(position).id);
+                    intent.putExtra("imgsrc", mAdapter.getData().get(position).pictures);
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), view.findViewById(R.id.iv_news_summary_photo), "photos");
                         getActivity().startActivity(intent, options.toBundle());
@@ -220,7 +224,7 @@ public class NewsListFragment extends BaseFragment<INewsListPresenter> implement
                     mSinaPhotoDetail.data.content = "";
                     mSinaPhotoDetail.data.pics = new ArrayList<>();
                     // 天啊，什么格式都有 --__--
-                    if (mAdapter.getData().get(position).ads != null) {
+                    /*if (mAdapter.getData().get(position).ads != null) {
                         for (NeteastNewsSummary.AdsEntity entiity : mAdapter.getData().get(position).ads) {
                             SinaPhotoDetail.SinaPhotoDetailPicsEntity sinaPicsEntity = new SinaPhotoDetail.SinaPhotoDetailPicsEntity();
                             sinaPicsEntity.pic = entiity.imgsrc;
@@ -235,7 +239,7 @@ public class NewsListFragment extends BaseFragment<INewsListPresenter> implement
                             sinaPicsEntity.kpic = entiity.imgsrc;
                             mSinaPhotoDetail.data.pics.add(sinaPicsEntity);
                         }
-                    }
+                    }*/
 
                     Intent intent = new Intent(getActivity(), PhotoDetailActivity.class);
                     intent.putExtra("neteast", mSinaPhotoDetail);

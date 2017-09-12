@@ -16,6 +16,8 @@ public class NewsChannelTable {
     private int newsChannelIndex;
     private Boolean newsChannelFixed;
 
+    private int category;
+
     public NewsChannelTable() {
     }
 
@@ -23,9 +25,9 @@ public class NewsChannelTable {
         this.newsChannelName = newsChannelName;
     }
 
-    public NewsChannelTable(String newsChannelName, String newsChannelId, String newsChannelType, boolean newsChannelSelect, int newsChannelIndex, Boolean newsChannelFixed) {
+    public NewsChannelTable(String newsChannelName, int category, String newsChannelType, boolean newsChannelSelect, int newsChannelIndex, Boolean newsChannelFixed) {
         this.newsChannelName = newsChannelName;
-        this.newsChannelId = newsChannelId;
+        this.category = category;
         this.newsChannelType = newsChannelType;
         this.newsChannelSelect = newsChannelSelect;
         this.newsChannelIndex = newsChannelIndex;
@@ -50,6 +52,13 @@ public class NewsChannelTable {
     /** Not-null value; ensure this value is available before it is saved to the database. */
     public void setNewsChannelId(String newsChannelId) {
         this.newsChannelId = newsChannelId;
+    }
+
+    public int getCategory(){
+        return category;
+    }
+    public void setCategory(int category){
+        this.category = category;
     }
 
     /** Not-null value. */

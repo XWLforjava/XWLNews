@@ -22,7 +22,7 @@ public class NewsChannelTableDao extends AbstractDao<NewsChannelTable, String> {
     */
     public static class Properties {
         public final static Property NewsChannelName = new Property(0, String.class, "newsChannelName", true, "NEWS_CHANNEL_NAME");
-        public final static Property NewsChannelId = new Property(1, String.class, "newsChannelId", false, "NEWS_CHANNEL_ID");
+        public final static Property category = new Property(1, int.class, "category", false, "NEWS_CHANNEL_ID");
         public final static Property NewsChannelType = new Property(2, String.class, "newsChannelType", false, "NEWS_CHANNEL_TYPE");
         public final static Property NewsChannelSelect = new Property(3, boolean.class, "newsChannelSelect", false, "NEWS_CHANNEL_SELECT");
         public final static Property NewsChannelIndex = new Property(4, int.class, "newsChannelIndex", false, "NEWS_CHANNEL_INDEX");
@@ -43,8 +43,8 @@ public class NewsChannelTableDao extends AbstractDao<NewsChannelTable, String> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"NEWS_CHANNEL_TABLE\" (" + //
                 "\"NEWS_CHANNEL_NAME\" TEXT PRIMARY KEY NOT NULL ," + // 0: newsChannelName
-                "\"NEWS_CHANNEL_ID\" TEXT NOT NULL ," + // 1: newsChannelId
-                "\"NEWS_CHANNEL_TYPE\" TEXT NOT NULL ," + // 2: newsChannelType
+                "\"NEWS_CHANNEL_ID\" INTEGER ," + // 1: newsChannelId
+                "\"NEWS_CHANNEL_TYPE\" TEXT ," + // 2: newsChannelType
                 "\"NEWS_CHANNEL_SELECT\" INTEGER NOT NULL ," + // 3: newsChannelSelect
                 "\"NEWS_CHANNEL_INDEX\" INTEGER NOT NULL ," + // 4: newsChannelIndex
                 "\"NEWS_CHANNEL_FIXED\" INTEGER);"); // 5: newsChannelFixed
@@ -64,7 +64,7 @@ public class NewsChannelTableDao extends AbstractDao<NewsChannelTable, String> {
     protected void bindValues(SQLiteStatement stmt, NewsChannelTable entity) {
         stmt.clearBindings();
         stmt.bindString(1, entity.getNewsChannelName());
-        stmt.bindString(2, entity.getNewsChannelId());
+        stmt.bindLong(2, entity.getCategory());
         stmt.bindString(3, entity.getNewsChannelType());
         stmt.bindLong(4, entity.getNewsChannelSelect() ? 1L: 0L);
         stmt.bindLong(5, entity.getNewsChannelIndex());
@@ -86,7 +86,7 @@ public class NewsChannelTableDao extends AbstractDao<NewsChannelTable, String> {
     public NewsChannelTable readEntity(Cursor cursor, int offset) {
         NewsChannelTable entity = new NewsChannelTable( //
             cursor.getString(offset + 0), // newsChannelName
-            cursor.getString(offset + 1), // newsChannelId
+            cursor.getInt(offset + 1), // category
             cursor.getString(offset + 2), // newsChannelType
             cursor.getShort(offset + 3) != 0, // newsChannelSelect
             cursor.getInt(offset + 4), // newsChannelIndex
@@ -99,7 +99,7 @@ public class NewsChannelTableDao extends AbstractDao<NewsChannelTable, String> {
     @Override
     public void readEntity(Cursor cursor, NewsChannelTable entity, int offset) {
         entity.setNewsChannelName(cursor.getString(offset + 0));
-        entity.setNewsChannelId(cursor.getString(offset + 1));
+        entity.setCategory(cursor.getInt(offset + 1));
         entity.setNewsChannelType(cursor.getString(offset + 2));
         entity.setNewsChannelSelect(cursor.getShort(offset + 3) != 0);
         entity.setNewsChannelIndex(cursor.getInt(offset + 4));

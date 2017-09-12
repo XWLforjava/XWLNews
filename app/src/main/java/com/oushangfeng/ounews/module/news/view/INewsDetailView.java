@@ -2,6 +2,7 @@ package com.oushangfeng.ounews.module.news.view;
 
 import com.oushangfeng.ounews.base.BaseView;
 import com.oushangfeng.ounews.bean.NeteastNewsDetail;
+import com.oushangfeng.ounews.bean.TsinghuaNewsDetail;
 
 /**
  * ClassName: INewsDetailView<p>
@@ -13,6 +14,6 @@ import com.oushangfeng.ounews.bean.NeteastNewsDetail;
  */
 public interface INewsDetailView extends BaseView{
 
-    void initNewsDetail(NeteastNewsDetail data);
+    void initNewsDetail(TsinghuaNewsDetail data);
 
 }

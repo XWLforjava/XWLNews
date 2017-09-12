@@ -24,6 +24,7 @@ import com.oushangfeng.ounews.annotation.ActivityFragmentInject;
 import com.oushangfeng.ounews.base.BaseActivity;
 import com.oushangfeng.ounews.bean.NeteastNewsDetail;
 import com.oushangfeng.ounews.bean.SinaPhotoDetail;
+import com.oushangfeng.ounews.bean.TsinghuaNewsDetail;
 import com.oushangfeng.ounews.module.news.presenter.INewsDetailPresenter;
 import com.oushangfeng.ounews.module.news.presenter.INewsDetailPresenterImpl;
 import com.oushangfeng.ounews.module.news.view.INewsDetailView;
@@ -116,7 +117,7 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
     }
 
     @Override
-    public void initNewsDetail(final NeteastNewsDetail data) {
+    public void initNewsDetail(final TsinghuaNewsDetail data) {
         //lcy: remove videos
         /*
         if (data.video != null && data.video.size() > 0) {
@@ -134,7 +135,7 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
         }
         */
 
-
+        /*
         if (data.img != null && data.img.size() > 0) {
             // 设置tag用于点击跳转浏览图片列表的时候判断是否有图片可供浏览
             mNewsImageView.setTag(R.id.img_tag, true);
@@ -201,13 +202,14 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
             //            Glide.with(this).load(mNewsListSrc).asBitmap().animate(R.anim.image_load).placeholder(R.drawable.ic_loading).diskCacheStrategy(DiskCacheStrategy.ALL)
             //                    .format(DecodeFormat.PREFER_ARGB_8888).error(R.drawable.ic_fail).into(mNewsImageView);
         }
+        */
 
         mTitleTv.setText(data.title);
         // 设置新闻来源和发布时间
-        mFromTv.setText(getString(R.string.from, data.source, data.ptime));
+        mFromTv.setText(getString(R.string.from, data.source, data.time));
         // 新闻内容可能为空
-        if (!TextUtils.isEmpty(data.body)) {
-            mBodyTv.setRichText(data.body);
+        if (!TextUtils.isEmpty(data.content)) {
+            mBodyTv.setRichText(data.content);
         }
 
     }

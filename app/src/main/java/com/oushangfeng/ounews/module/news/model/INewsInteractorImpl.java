@@ -9,6 +9,8 @@ import com.oushangfeng.ounews.http.Api;
 import com.oushangfeng.ounews.utils.SpUtil;
 import com.socks.library.KLog;
 
+import org.apache.commons.lang.ArrayUtils;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -45,12 +47,12 @@ public class INewsInteractorImpl implements INewsInteractor<List<NewsChannelTabl
                     List<String> channelName = Arrays.asList(App.getContext().getResources()
                             .getStringArray(R.array.news_channel));
 
-                    List<String> channelId = Arrays.asList(App.getContext().getResources()
-                            .getStringArray(R.array.news_channel_id));
+                    List<Integer> category = Arrays.asList(ArrayUtils.toObject(App.getContext().getResources()
+                            .getIntArray(R.array.category)));
 
                     for (int i = 0; i < channelName.size(); i++) {
                         NewsChannelTable table = new NewsChannelTable(channelName.get(i),
-                                channelId.get(i), Api.getType(channelId.get(i)), i <= 2,
+                                category.get(i), "1", i <= 2,
                                 // 前三是固定死的，默认选中状态
                                 i, i <= 2);
                         dao.insert(table);

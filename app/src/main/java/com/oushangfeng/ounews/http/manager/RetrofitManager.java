@@ -193,7 +193,8 @@ public class RetrofitManager {
     }
 
     public Observable<JsonNode> getTsinghuaNewsListObservable(int pageNo, int pageSize, int category) {
-        return mNewsService.getTsinghuaNewsList(pageNo, pageSize, category).compose(new BaseSchedulerTransformer<JsonNode>());
+        return (category == 0 ? mNewsService.getTsinghuaNewsList(pageNo, pageSize) : mNewsService.getTsinghuaNewsList(pageNo, pageSize, category))
+                .compose(new BaseSchedulerTransformer<JsonNode>());
     }
 
     /**

@@ -2,6 +2,7 @@ package com.oushangfeng.ounews.module.news.presenter;
 
 import com.oushangfeng.ounews.base.BasePresenterImpl;
 import com.oushangfeng.ounews.bean.NeteastNewsSummary;
+import com.oushangfeng.ounews.bean.TsinghuaNewsSummary;
 import com.oushangfeng.ounews.common.DataLoadType;
 import com.oushangfeng.ounews.module.news.model.INewsListInteractor;
 import com.oushangfeng.ounews.module.news.model.INewsListInteractorImpl;
@@ -18,22 +19,23 @@ import java.util.List;
  * UpdateUser: <p>
  * UpdateDate: <p>
  */
-public class INewsListPresenterImpl extends BasePresenterImpl<INewsListView, List<NeteastNewsSummary>> implements INewsListPresenter {
+public class INewsListPresenterImpl extends BasePresenterImpl<INewsListView, List<TsinghuaNewsSummary>> implements INewsListPresenter {
 
-    private INewsListInteractor<List<NeteastNewsSummary>> mNewsListInteractor;
-    private String mNewsType;
-    private String mNewsId;
-    private int mStartPage;
+    private INewsListInteractor<List<TsinghuaNewsSummary>> mNewsListInteractor;
+    private int mPageNo;
+    private int mCategory;
+    private int mPageSize;
 
     private boolean mIsRefresh = true;
     private boolean mHasInit;
 
-    public INewsListPresenterImpl(INewsListView newsListView, String newsId, String newsType) {
+    public INewsListPresenterImpl(INewsListView newsListView, int pageSize, int category) {
         super(newsListView);
         mNewsListInteractor = new INewsListInteractorImpl();
-        mSubscription = mNewsListInteractor.requestNewsList(this, newsType, newsId, mStartPage);
-        mNewsType = newsType;
-        mNewsId = newsId;
+        mPageNo = 1;
+        mSubscription = mNewsListInteractor.requestNewsList(this, mPageNo, pageSize, category);
+        mCategory = category;
+        mPageSize = pageSize;
     }
 
     @Override
@@ -51,9 +53,9 @@ public class INewsListPresenterImpl extends BasePresenterImpl<INewsListView, Lis
     }
 
     @Override
-    public void requestSuccess(List<NeteastNewsSummary> data) {
+    public void requestSuccess(List<TsinghuaNewsSummary> data) {
         if (data != null) {
-            mStartPage += 20;
+            mPageNo += 1;
         }
         mView.updateNewsList(data, "", mIsRefresh ? DataLoadType.TYPE_REFRESH_SUCCESS : DataLoadType.TYPE_LOAD_MORE_SUCCESS);
 
@@ -61,15 +63,15 @@ public class INewsListPresenterImpl extends BasePresenterImpl<INewsListView, Lis
 
     @Override
     public void refreshData() {
-        mStartPage = 0;
+        mPageNo = 1;
         mIsRefresh = true;
-        mSubscription = mNewsListInteractor.requestNewsList(this, mNewsType, mNewsId, mStartPage);
+        mSubscription = mNewsListInteractor.requestNewsList(this, mPageNo, mPageSize, mCategory);
     }
 
     @Override
     public void loadMoreData() {
         mIsRefresh = false;
-        mSubscription = mNewsListInteractor.requestNewsList(this, mNewsType, mNewsId, mStartPage);
+        mSubscription = mNewsListInteractor.requestNewsList(this, mPageNo, mPageSize, mCategory);
     }
 
 }

@@ -84,7 +84,7 @@ public class NewsActivity extends BaseActivity<INewsPresenter> implements INewsV
             // 有除了固定的其他频道被选中，添加
             for (NewsChannelTable news : newsChannels) {
                 final NewsListFragment fragment = NewsListFragment
-                        .newInstance(news.getNewsChannelId(), news.getNewsChannelType(),
+                        .newInstance(news.getCategory(),
                                 news.getNewsChannelIndex());
 
                 fragments.add(fragment);
