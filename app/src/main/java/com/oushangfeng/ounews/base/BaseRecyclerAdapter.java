@@ -269,6 +269,11 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
         notifyItemChanged(getItemCount() - 1);
     }
 
+    //add by lcy 2017-9-11
+    public Context getmContext(){
+        return mContext;
+    }
+
     /**
      * 设置是否开启底部加载
      *
