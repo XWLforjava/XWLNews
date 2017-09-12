@@ -11,7 +11,7 @@ public class Daogenerator {
         String defaultJavaPackage = "com.oushangfeng.ounews.greendao";
         Schema schema = new Schema(version, defaultJavaPackage);
         addTable(schema);
-        // /表示根目录， ./表示当前路径， ../表示上一级父目录
+        // / ./../
         new DaoGenerator().generateAll(schema, "./app/src/main/java-gen");
     }
 
@@ -31,11 +31,11 @@ public class Daogenerator {
          */
         note.addStringProperty("newsChannelType").notNull();
         /**
-         * 选中的频道
+         *
          */
         note.addBooleanProperty("newsChannelSelect").notNull();
         /**
-         * 频道的排序位置
+         *
          */
         note.addIntProperty("newsChannelIndex").notNull();
         /**
