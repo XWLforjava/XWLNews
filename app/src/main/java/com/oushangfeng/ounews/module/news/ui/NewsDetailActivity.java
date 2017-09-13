@@ -20,8 +20,10 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.Resource;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oushangfeng.ounews.R;
 import com.oushangfeng.ounews.annotation.ActivityFragmentInject;
@@ -36,6 +38,7 @@ import com.oushangfeng.ounews.module.news.presenter.INewsDetailPresenterImpl;
 import com.oushangfeng.ounews.module.news.view.INewsDetailView;
 import com.oushangfeng.ounews.module.photo.ui.PhotoDetailActivity;
 import com.oushangfeng.ounews.module.video.ui.VideoPlayActivity;
+import com.oushangfeng.ounews.share.ShareUtil;
 import com.oushangfeng.ounews.utils.GlideUtils;
 import com.oushangfeng.ounews.utils.MeasureUtil;
 import com.oushangfeng.ounews.utils.ViewUtil;
@@ -299,15 +302,40 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
         if (item.getItemId() == R.id.add_to_collection) {
             if(CollectionManager.getInstance().checkInCollections(mSummary)){
                 CollectionManager.getInstance().deleteCollection(mSummary);
+                toast("已从收藏夹移除");
                 mMenu.getItem(0).setTitle(R.string.add_to_collection);
             }
             else{
                 CollectionManager.getInstance().addCollection(mSummary);
+                toast("已加入收藏夹");
                 mMenu.getItem(0).setTitle(R.string.delete_from_collection);
             }
         }
         else if(item.getItemId() == R.id.menu_share){
-            toast("分享功能尚未完成");
+            String str = "";
+            str = "来自XWLNews:\n" + mSummary.title + "\n" + mSummary.intro + "\n" + "原网址: " + mSummary.url;
+            Bitmap pic = null;
+            /*
+            if(mSummary.pictures.equals(""))
+                pic = BitmapFactory.decodeResource(getResources(), R.drawable.ic_fail);
+            else{
+                try {
+                    pic = Glide.with(this).load(mSummary.pictures).asBitmap().centerCrop().into(500, 500).get();
+                }catch (Exception e){
+                    pic = BitmapFactory.decodeResource(getResources(), R.drawable.ic_fail);
+                }
+            }
+            */
+
+            //mNewsImageView.setImageBitmap(pic);
+            mNewsImageView.setDrawingCacheEnabled(true);
+            pic = Bitmap.createBitmap(mNewsImageView.getDrawingCache());
+            mNewsImageView.setDrawingCacheEnabled(false);
+            mNewsImageView.setImageBitmap(pic);
+            ShareUtil shareUtil = new ShareUtil(this);
+            shareUtil.shareToWXCircle(str, pic);
+
+            //toast("分享功能尚未完成");
         }
         return super.onOptionsItemSelected(item);
     }
