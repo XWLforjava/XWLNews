@@ -155,7 +155,8 @@ public class NewsCollectionsActivity extends BaseActivity<BasePresenter> impleme
 
             @Override
             public void bindData(BaseRecyclerViewHolder holder, int position, TsinghuaNewsSummary item) {
-                GlideUtils.loadDefault(item.pictures, holder.getImageView(R.id.iv_news_summary_photo), null, null, DiskCacheStrategy.RESULT);
+                String pic[] = item.pictures.split(";");
+                GlideUtils.loadDefault(pic[0], holder.getImageView(R.id.iv_news_summary_photo), null, null, DiskCacheStrategy.RESULT);
                 //                Glide.with(getActivity()).load(item.imgsrc).asBitmap().animate(R.anim.image_load).diskCacheStrategy(DiskCacheStrategy.RESULT)
                 //                        .placeholder(R.drawable.ic_loading).error(R.drawable.ic_fail).into(holder.getImageView(R.id.iv_news_summary_photo));
                 //add by lcy
