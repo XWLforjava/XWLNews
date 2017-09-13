@@ -1,5 +1,7 @@
 package com.oushangfeng.ounews.module.news.ui;
 
+import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
@@ -45,6 +47,7 @@ import rx.functions.Action1;
 public class NewsActivity extends BaseActivity<INewsPresenter> implements INewsView {
 
     private Observable<Boolean> mChannelObservable;
+    private Context mContext;
 
     @Override
     protected void onDestroy() {
@@ -62,6 +65,7 @@ public class NewsActivity extends BaseActivity<INewsPresenter> implements INewsV
         AppManager.getAppManager().orderNavActivity(getClass().getName(), false);
 
         mPresenter = new INewsPresenterImpl(this);
+        mContext = this;
 
     }
 
@@ -79,8 +83,10 @@ public class NewsActivity extends BaseActivity<INewsPresenter> implements INewsV
             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
                 public void onClick(DialogInterface dialog, int which) {
-                    toast(inputServer.getText().toString());
-
+                    //toast(inputServer.getText().toString());
+                    Intent intent = new Intent(mContext, NewsSearchingActivity.class);
+                    intent.putExtra("Keywords", inputServer.getText().toString());
+                    startActivity(intent);
                 }
             });
             builder.show();

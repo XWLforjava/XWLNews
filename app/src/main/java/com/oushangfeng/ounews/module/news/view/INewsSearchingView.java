@@ -18,6 +18,6 @@ import java.util.List;
  * UpdateUser: <p>
  * UpdateDate: <p>
  */
-public interface INewsSearchView extends BaseView {
+public interface INewsSearchingView extends BaseView {
     void updateNewsList(List<TsinghuaNewsSummary> data, @NonNull String errorMsg, @DataLoadType.DataLoadTypeChecker int type);
 }

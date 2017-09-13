@@ -89,6 +89,10 @@ buildscript {
 
 
 
+
+
+
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     // 使用okhttp3加载图片
@@ -130,6 +134,9 @@ dependencies {
     compile files('libs/commons-beanutils-1.9.3/commons-beanutils-1.9.3-sources.jar')
     compile files('libs/commons-lang-2.6/commons-lang-2.6.jar')
     compile files('libs/commons-beanutils-1.9.3/commons-beanutils-1.9.3.jar')
+    compile files('libs/Msc.jar')
+    compile files('libs/Sunflower.jar')
+    compile files('src/main/lib/libammsdk.jar')
     compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.android.support:design:25.0.0'
     compile 'com.android.support:support-v4:25.0.0'
@@ -168,7 +175,4 @@ dependencies {
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4'
     x86Compile 'tv.danmaku.ijk.media:ijkplayer-x86:0.6.2'
     x86_64Compile 'tv.danmaku.ijk.media:ijkplayer-x86_64:0.6.2'
-    compile files('libs/Msc.jar')
-    compile files('libs/Sunflower.jar')
-    compile files('src/main/lib/libammsdk.jar')
 }

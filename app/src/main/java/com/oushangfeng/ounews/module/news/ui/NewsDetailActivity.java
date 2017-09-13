@@ -47,13 +47,16 @@ import com.oushangfeng.ounews.module.news.presenter.INewsDetailPresenter;
 import com.oushangfeng.ounews.module.news.presenter.INewsDetailPresenterImpl;
 import com.oushangfeng.ounews.module.news.view.INewsDetailView;
 import com.oushangfeng.ounews.module.photo.ui.PhotoDetailActivity;
+import com.oushangfeng.ounews.module.settings.ui.SettingsActivity;
 import com.oushangfeng.ounews.module.video.ui.VideoPlayActivity;
 import com.oushangfeng.ounews.share.ShareUtil;
 import com.oushangfeng.ounews.speech.Sync;
 import com.oushangfeng.ounews.utils.GlideUtils;
 import com.oushangfeng.ounews.utils.MeasureUtil;
+import com.oushangfeng.ounews.utils.RxBus;
 import com.oushangfeng.ounews.utils.ViewUtil;
 import com.oushangfeng.ounews.widget.ThreePointLoadingView;
+import com.zhy.changeskin.SkinManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -92,6 +95,7 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
     private SinaPhotoDetail mSinaPhotoDetail;
 
     private TsinghuaNewsSummary mSummary;
+    private Sync mSync;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,9 +110,9 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
         getWindow().setBackgroundDrawable(null);
 
         SpeechUtility.createUtility(this, SpeechConstant.APPID + "=59afcb10");
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO},1);
+        //ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO},1);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
-
+        mSync = new Sync(this);
         super.onCreate(savedInstanceState);
     }
 
@@ -309,8 +313,7 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
         else if(v.getId() == R.id.fab_reading){
             //...语音读出新闻
             //toast(mBodyTv.getText().toString());
-            Sync sync = new Sync(this);
-            sync.startHeCheng(mBodyTv.getText().toString());
+            mSync.startHeCheng(mBodyTv.getText().toString());
             //toast("语音读出新闻，尚未完成");
         }
     }
@@ -369,6 +372,12 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
             mMenu.getItem(0).setTitle(R.string.add_to_collection);
         }
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        mSync.stopVoice();
+        super.onDestroy();
     }
 
     private SpannableString AddLink(TsinghuaNewsDetail news){
