@@ -163,8 +163,13 @@ public class NewsListFragment extends BaseFragment<INewsListPresenter> implement
 
             @Override
             public void bindData(BaseRecyclerViewHolder holder, int position, TsinghuaNewsSummary item) {
-                String pics[] = item.pictures.split(";| ");
-                GlideUtils.loadDefault(pics[0], holder.getImageView(R.id.iv_news_summary_photo), null, null, DiskCacheStrategy.RESULT);
+                String pic[] = item.pictures.split(";| ");
+                if (pic.length == 0)
+                {
+                    pic = new String[1];
+                    pic[0] = "";
+                }
+                GlideUtils.loadDefault(pic[0], holder.getImageView(R.id.iv_news_summary_photo), null, null, DiskCacheStrategy.RESULT);
                 //                Glide.with(getActivity()).load(item.imgsrc).asBitmap().animate(R.anim.image_load).diskCacheStrategy(DiskCacheStrategy.RESULT)
                 //                        .placeholder(R.drawable.ic_loading).error(R.drawable.ic_fail).into(holder.getImageView(R.id.iv_news_summary_photo));
                 //add by lcy
