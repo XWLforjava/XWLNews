@@ -72,7 +72,6 @@
             android:name=".module.video.ui.VideoPlayActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
             android:theme="@style/BaseAppTheme.AppTheme" />
-        <activity android:name=".module.news.ui.NewsCollectionActivity" />
         <activity
             android:name=".module.news.ui.NewsCollectionsActivity"
             android:label="@string/title_activity_news_collections"
