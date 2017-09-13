@@ -99,12 +99,12 @@ public class NewsSearchingActivity extends BaseActivity<BasePresenter> implement
 
         AppManager.getAppManager().orderNavActivity(getClass().getName(), false);
 
-        mLoadingView = (ThreePointLoadingView) findViewById(R.id.tpl_view);
+        mLoadingView = (ThreePointLoadingView) findViewById(R.id.tpl_view3);
         mLoadingView.setOnClickListener(this);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view3);
 
-        mRefreshLayout = (RefreshLayout) findViewById(R.id.collections_layout);
+        mRefreshLayout = (RefreshLayout) findViewById(R.id.searching_layout);
 
         mPresenter = new INewsSearchingPresenterImpl(this, mKeywords);
 

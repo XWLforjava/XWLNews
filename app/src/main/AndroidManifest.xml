@@ -76,7 +76,10 @@
             android:name=".module.news.ui.NewsCollectionsActivity"
             android:label="@string/title_activity_news_collections"
             android:theme="@style/BaseAppTheme" />
-        <activity android:name=".module.news.ui.NewsSearchActivity"></activity>
+        <activity
+            android:name=".module.news.ui.NewsSearchingActivity"
+            android:label="@string/title_activity_news_searching"
+            android:theme="@style/BaseAppTheme" />
     </application>
 
 </manifest>

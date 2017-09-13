@@ -227,6 +227,7 @@
     <string name="title_activity_news_collection">NewsCollectionActivity</string>
     <string name="title_activity_test">TestActivity</string>
     <string name="title_activity_news_collections">NewsCollectionsActivity</string>
+    <string name="title_activity_news_searching">NewsSearchingActivity</string>
 
 
 </resources>

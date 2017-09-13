@@ -24,12 +24,12 @@
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
+            android:id="@+id/recycler_view3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
         <com.oushangfeng.ounews.widget.ThreePointLoadingView
-            android:id="@+id/tpl_view"
+            android:id="@+id/tpl_view3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?attr/backgroundColor"
