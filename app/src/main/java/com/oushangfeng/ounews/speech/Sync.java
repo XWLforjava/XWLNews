@@ -37,7 +37,8 @@ public class Sync{
     public SynthesizerListener mSynListener;  
 
 	public Sync(Context context) {  
-        this.context = context; 
+        this.context = context;
+		mTts = SpeechSynthesizer.createSynthesizer(context, null);
 		mSynListener = new SynthesizerListener() {  
 			//会话结束回调接口，没有错误时，error为null  
 			public void onCompleted(SpeechError error) {  
@@ -76,7 +77,7 @@ public class Sync{
      */
     public void startHeCheng(String recordResult) {
         //1.创建SpeechSynthesizer对象, 第二个参数：本地合成时传InitListener
-        SpeechSynthesizer mTts = SpeechSynthesizer.createSynthesizer(context, null);
+
 
         /**
          2.合成参数设置，详见《科大讯飞MSC API手册(Android)》SpeechSynthesizer 类
@@ -114,5 +115,7 @@ public class Sync{
         }
 
     }
-	
+	public void stopVoice(){
+		mTts.stopSpeaking();
+	}
 }
