@@ -15,7 +15,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.URLSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -250,9 +254,10 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
         mFromTv.setText(getString(R.string.from, data.source, data.time));
         // 新闻内容可能为空
         if (!TextUtils.isEmpty(data.content)) {
-            mBodyTv.setRichText(data.content);
+            //mBodyTv.setRichText(data.content);
+            mBodyTv.setText(AddLink(data));
         }
-
+        mBodyTv.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     /*@Override
@@ -358,4 +363,24 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
         return true;
     }
 
+    private SpannableString AddLink(TsinghuaNewsDetail news){
+        SpannableString sp = new SpannableString(news.content);
+        // 设置超链接
+        for(TsinghuaNewsDetail.WordCount i : news.locations){
+            int ind = sp.toString().indexOf(i.word);
+            if(ind != -1){
+                sp.setSpan(new URLSpan("https://baike.baidu.com/item/" + i.word), ind, ind + i.word.length(),
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+        }
+        for(TsinghuaNewsDetail.WordCount i : news.persons){
+            int ind = sp.toString().indexOf(i.word);
+            if(ind != -1){
+                sp.setSpan(new URLSpan("https://baike.baidu.com/item/" + i.word), ind, ind + i.word.length(),
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+        }
+
+        return sp;
+    }
 }
