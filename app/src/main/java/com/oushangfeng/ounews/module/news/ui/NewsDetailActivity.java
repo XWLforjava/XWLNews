@@ -162,7 +162,7 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
             mNewsImageView.setTag(R.id.img_tag, true);
             // 显示第一张图片，通过pixel字符串分割得到图片的分辨率
             String[] pixel = null;
-            final String pics[] = data.pictures.split(";");
+            final String pics[] = data.pictures.split(";| ");
 
             try
             {
