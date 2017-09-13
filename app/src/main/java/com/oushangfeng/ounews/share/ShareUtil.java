@@ -18,6 +18,8 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.oushangfeng.ounews.app.App;
+
 import static android.R.attr.path;
 
 /**
@@ -297,7 +299,8 @@ public class ShareUtil {
 
     public static File saveImageToGallery(Context context, Bitmap bmp) {
         // 首先保存图片
-        File appDir = new File(Environment.getExternalStorageDirectory(),"display-client");
+
+        File appDir = new File(App.getContext().getFilesDir().getAbsolutePath()+"/display-client/");
         if (!appDir.exists()) {
             appDir.mkdir();
         }
