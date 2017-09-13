@@ -1,10 +1,13 @@
 package com.oushangfeng.ounews.module.news.ui;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -91,6 +94,8 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
             ViewUtil.showStatusBar(this);
         }
+
+        //ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
 
         getWindow().setBackgroundDrawable(null);
 
@@ -331,10 +336,10 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
             mNewsImageView.setDrawingCacheEnabled(true);
             pic = Bitmap.createBitmap(mNewsImageView.getDrawingCache());
             mNewsImageView.setDrawingCacheEnabled(false);
-            mNewsImageView.setImageBitmap(pic);
+            //mNewsImageView.setImageBitmap(pic);
+            Uri picuri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), pic, "", ""));
             ShareUtil shareUtil = new ShareUtil(this);
-            shareUtil.shareToWXCircle(str, pic);
-
+            shareUtil.shareToWXCircle(str, picuri);
             //toast("分享功能尚未完成");
         }
         return super.onOptionsItemSelected(item);

@@ -210,7 +210,7 @@ public class ShareUtil {
      * @param className  
      * @param file 图片文件  
      */  
-    public void shareImgToWXCircle(String title,String packageName,String className, File file){  
+    public void shareImgToWXCircle(String title,String packageName,String className, File file){
         if(file.exists()){  
             Uri uri = Uri.fromFile(file);  
             Intent intent = new Intent();  
@@ -228,17 +228,32 @@ public class ShareUtil {
           
     }  
 	
-	public void shareToWXCircle(String content, Bitmap bitmap){
+	public void shareToWXCircle(String content, Uri uri){
         //String filename = new Date().getTime()+".png";
         //String filepath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/display-client/picture/"+filename;
         //savePicture(bitmap, filepath);
+        /*
         File file = saveImageToGallery(this.context,bitmap);//new File(filepath);
 		if (checkInstall(WEIXIN_PACKAGE_NAME)) {  
                 shareImgToWXCircle(content, WEIXIN_PACKAGE_NAME,  
                     WEIXIN_FRIENDCIRCLE_CLASSNAME, file);  
             } else {  
                 toInstallWebView("http://weixin.qq.com/download");  
-            }  
+            }
+         */
+        if (checkInstall(WEIXIN_PACKAGE_NAME)) {
+            Intent intent = new Intent();
+            ComponentName comp = new ComponentName(WEIXIN_PACKAGE_NAME, WEIXIN_FRIENDCIRCLE_CLASSNAME);
+            intent.setComponent(comp);
+            intent.setAction(Intent.ACTION_SEND);
+            intent.setType("image/*");
+            intent.putExtra(Intent.EXTRA_STREAM, uri);
+            intent.putExtra("Kdescription", content);
+            context.startActivity(intent);
+        } else {
+            toInstallWebView("http://weixin.qq.com/download");
+        }
+
 	}	
 	
     /**  
