@@ -305,7 +305,7 @@ public class ShareUtil {
             appDir.mkdirs();
         }
         String fileName = System.currentTimeMillis() + ".jpg";
-        File file = new File(appDir, fileName);
+        File file = new File(App.getContext().getFilesDir().getAbsolutePath()+"/display-client/"+fileName);
         try {
             FileOutputStream fos = new FileOutputStream(file);
             bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
