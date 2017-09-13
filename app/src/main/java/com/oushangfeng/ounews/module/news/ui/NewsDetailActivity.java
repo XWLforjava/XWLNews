@@ -157,12 +157,12 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
         */
 
 
-        if (data.pictures != null && data.pictures.length() > 0) {
+        final String pics[] = data.pictures.split(";| ");
+        if (data.pictures != null && data.pictures.length() > 0 && pics.length > 0) {
             // 设置tag用于点击跳转浏览图片列表的时候判断是否有图片可供浏览
             mNewsImageView.setTag(R.id.img_tag, true);
             // 显示第一张图片，通过pixel字符串分割得到图片的分辨率
             String[] pixel = null;
-            final String pics[] = data.pictures.split(";| ");
 
             try
             {
