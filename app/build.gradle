@@ -64,6 +64,7 @@ android {
     sourceSets {
         main {
             java.srcDirs = ['src/main/java', 'src/main/java-gen']
+            jniLibs.srcDirs = ['libs']
         }
     }
 
@@ -96,6 +97,7 @@ dependencies {
     }
     compile project(':changeskin')
     // required, enough for most devices.
+
     // ExoPlayer as IMediaPlayer: optional, experimental
     compile project(':slideback')
     compile files('libs/ezmorph-1.0.6.jar')
@@ -166,4 +168,7 @@ dependencies {
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4'
     x86Compile 'tv.danmaku.ijk.media:ijkplayer-x86:0.6.2'
     x86_64Compile 'tv.danmaku.ijk.media:ijkplayer-x86_64:0.6.2'
+    compile files('libs/Msc.jar')
+    compile files('libs/Sunflower.jar')
+    compile files('src/main/lib/libammsdk.jar')
 }
