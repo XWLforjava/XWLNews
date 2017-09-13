@@ -1,6 +1,8 @@
 package com.oushangfeng.ounews.module.news.ui;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -39,8 +41,12 @@ import com.oushangfeng.ounews.utils.MeasureUtil;
 import com.oushangfeng.ounews.utils.ViewUtil;
 import com.oushangfeng.ounews.widget.ThreePointLoadingView;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
+
 
 import zhou.widget.RichText;
 
@@ -150,16 +156,29 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
         }
         */
 
-        /*
-        if (data.img != null && data.img.size() > 0) {
+
+        if (data.pictures != null && data.pictures.length() > 0) {
             // 设置tag用于点击跳转浏览图片列表的时候判断是否有图片可供浏览
             mNewsImageView.setTag(R.id.img_tag, true);
             // 显示第一张图片，通过pixel字符串分割得到图片的分辨率
             String[] pixel = null;
-            if (!TextUtils.isEmpty(data.img.get(0).pixel)) {
+            final String pics[] = data.pictures.split(";");
+
+            try
+            {
+                URL picture = new URL(pics[0]);
+                InputStream istream = picture.openStream();
+                Bitmap bitmap = BitmapFactory.decodeStream(istream);
+                pixel = new String[2];
+                pixel[0] = Integer.toString(bitmap.getWidth());
+                pixel[1] = Integer.toString(bitmap.getHeight());
+            }
+            catch(Exception e){}
+
+            /*if (!TextUtils.isEmpty(data.img.get(0).pixel)) {
                 // pixel可能为空
                 pixel = data.img.get(0).pixel.split("\\*");
-            }
+            }*/
             // 图片高清显示，按屏幕宽度为准缩放
             if (pixel != null && pixel.length == 2) {
 
@@ -170,22 +189,22 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
 
                 // KLog.e(w + ";" + h);
 
-                if (data.img.get(0).src.contains(".gif")) {
+                if (pics[0].contains(".gif")) {
                     mNewsImageView.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            GlideUtils.loadDefaultOverrideNoAnim(data.img.get(0).src, mNewsImageView, w, h, true, null, DiskCacheStrategy.SOURCE);
+                            GlideUtils.loadDefaultOverrideNoAnim(pics[0], mNewsImageView, w, h, true, null, DiskCacheStrategy.SOURCE);
                             //                            Glide.with(mNewsImageView.getContext()).load(data.img.get(0).src).asGif().animate(R.anim.image_load).placeholder(R.drawable.ic_loading).error(R.drawable.ic_fail)
                             //                                    .diskCacheStrategy(DiskCacheStrategy.SOURCE).override(w, h).into(mNewsImageView);
                         }
                     }, 500);
                 } else {
-                    GlideUtils.loadDefaultOverrideNoAnim(data.img.get(0).src, mNewsImageView, w, h, false, DecodeFormat.PREFER_ARGB_8888, DiskCacheStrategy.ALL);
+                    GlideUtils.loadDefaultOverrideNoAnim(pics[0], mNewsImageView, w, h, false, DecodeFormat.PREFER_ARGB_8888, DiskCacheStrategy.ALL);
                     //                    Glide.with(this).load(data.img.get(0).src).asBitmap().animate(R.anim.image_load).placeholder(R.drawable.ic_loading)
                     //                            .format(DecodeFormat.PREFER_ARGB_8888).error(R.drawable.ic_fail).diskCacheStrategy(DiskCacheStrategy.ALL).override(w, h).into(mNewsImageView);
                 }
             } else {
-                GlideUtils.loadDefaultNoAnim(data.img.get(0).src, mNewsImageView, false, DecodeFormat.PREFER_ARGB_8888, DiskCacheStrategy.ALL);
+                GlideUtils.loadDefaultNoAnim(pics[0], mNewsImageView, false, DecodeFormat.PREFER_ARGB_8888, DiskCacheStrategy.ALL);
                 //                Glide.with(this).load(data.img.get(0).src).asBitmap().animate(R.anim.image_load).placeholder(R.drawable.ic_loading).format(DecodeFormat.PREFER_ARGB_8888)
                 //                        .diskCacheStrategy(DiskCacheStrategy.ALL).error(R.drawable.ic_fail).into(mNewsImageView);
             }
@@ -195,13 +214,13 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
                 mSinaPhotoDetail = new SinaPhotoDetail();
                 mSinaPhotoDetail.data = new SinaPhotoDetail.SinaPhotoDetailDataEntity();
                 mSinaPhotoDetail.data.title = data.title;
-                mSinaPhotoDetail.data.content = data.digest;
+                //mSinaPhotoDetail.data.content = data.digest;//detail没有intro
                 mSinaPhotoDetail.data.pics = new ArrayList<>();
-                for (NeteastNewsDetail.ImgEntity entiity : data.img) {
+                for (String x : pics) {
                     SinaPhotoDetail.SinaPhotoDetailPicsEntity sinaPicsEntity = new SinaPhotoDetail.SinaPhotoDetailPicsEntity();
-                    sinaPicsEntity.pic = entiity.src;
-                    sinaPicsEntity.alt = entiity.alt;
-                    sinaPicsEntity.kpic = entiity.src;
+                    sinaPicsEntity.pic = x;
+                    //sinaPicsEntity.alt = entiity.alt;
+                    sinaPicsEntity.kpic = x;
                     if (pixel != null && pixel.length == 2) {
                         // 新浪分辨率是按100x100这种形式的
                         sinaPicsEntity.size = pixel[0] + "x" + pixel[1];
@@ -217,7 +236,7 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
             //            Glide.with(this).load(mNewsListSrc).asBitmap().animate(R.anim.image_load).placeholder(R.drawable.ic_loading).diskCacheStrategy(DiskCacheStrategy.ALL)
             //                    .format(DecodeFormat.PREFER_ARGB_8888).error(R.drawable.ic_fail).into(mNewsImageView);
         }
-        */
+
 
         mTitleTv.setText(data.title);
         // 设置新闻来源和发布时间
