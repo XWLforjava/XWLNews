@@ -302,7 +302,7 @@ public class ShareUtil {
 
         File appDir = new File(App.getContext().getFilesDir().getAbsolutePath()+"/display-client/");
         if (!appDir.exists()) {
-            appDir.mkdir();
+            appDir.mkdirs();
         }
         String fileName = System.currentTimeMillis() + ".jpg";
         File file = new File(appDir, fileName);
