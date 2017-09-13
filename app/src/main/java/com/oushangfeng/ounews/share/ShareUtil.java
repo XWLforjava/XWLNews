@@ -14,11 +14,14 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import static android.R.attr.path;
+
 /**
- *分享到朋友圈接口：public void shareToWXCircle(String content, File file)
+ *分享到朋友圈接口：public void shareToWXCircle(String content, Bitmap bitmap)
  * content 为文字，file 为图片（本地）地址生成的 File, 使用url 的接口未实现
  */
 
@@ -224,10 +227,10 @@ public class ShareUtil {
     }  
 	
 	public void shareToWXCircle(String content, Bitmap bitmap){
-        String filename = new Date().getTime()+".png";
-        String filepath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/display-client/picture/"+filename;
-        savePicture(bitmap, filepath);
-        File file = new File(filepath);
+        //String filename = new Date().getTime()+".png";
+        //String filepath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/display-client/picture/"+filename;
+        //savePicture(bitmap, filepath);
+        File file = saveImageToGallery(this.context,bitmap);//new File(filepath);
 		if (checkInstall(WEIXIN_PACKAGE_NAME)) {  
                 shareImgToWXCircle(content, WEIXIN_PACKAGE_NAME,  
                     WEIXIN_FRIENDCIRCLE_CLASSNAME, file);  
@@ -290,5 +293,36 @@ public class ShareUtil {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static File saveImageToGallery(Context context, Bitmap bmp) {
+        // 首先保存图片
+        File appDir = new File(Environment.getExternalStorageDirectory(),"display-client");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        String fileName = System.currentTimeMillis() + ".jpg";
+        File file = new File(appDir, fileName);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // 其次把文件插入到系统图库
+        try {
+            MediaStore.Images.Media.insertImage(context.getContentResolver(),
+                    file.getAbsolutePath(), fileName, null);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        // 最后通知图库更新
+        context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + path)));
+        return file;
     }
 }
