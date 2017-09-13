@@ -1,6 +1,7 @@
 package com.oushangfeng.ounews.module.news.ui;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -94,8 +95,6 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
             ViewUtil.showStatusBar(this);
         }
-
-        //ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
 
         getWindow().setBackgroundDrawable(null);
 
@@ -317,6 +316,8 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
             }
         }
         else if(item.getItemId() == R.id.menu_share){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+
             String str = "";
             str = "来自XWLNews:\n" + mSummary.title + "\n" + mSummary.intro + "\n" + "原网址: " + mSummary.url;
             Bitmap pic = null;
@@ -331,7 +332,6 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
                 }
             }
             */
-
             //mNewsImageView.setImageBitmap(pic);
             mNewsImageView.setDrawingCacheEnabled(true);
             pic = Bitmap.createBitmap(mNewsImageView.getDrawingCache());
