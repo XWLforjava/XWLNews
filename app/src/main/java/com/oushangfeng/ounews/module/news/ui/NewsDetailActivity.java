@@ -33,6 +33,8 @@ import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.Resource;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
 import com.oushangfeng.ounews.R;
 import com.oushangfeng.ounews.annotation.ActivityFragmentInject;
 import com.oushangfeng.ounews.base.BaseActivity;
@@ -47,6 +49,7 @@ import com.oushangfeng.ounews.module.news.view.INewsDetailView;
 import com.oushangfeng.ounews.module.photo.ui.PhotoDetailActivity;
 import com.oushangfeng.ounews.module.video.ui.VideoPlayActivity;
 import com.oushangfeng.ounews.share.ShareUtil;
+import com.oushangfeng.ounews.speech.Sync;
 import com.oushangfeng.ounews.utils.GlideUtils;
 import com.oushangfeng.ounews.utils.MeasureUtil;
 import com.oushangfeng.ounews.utils.ViewUtil;
@@ -101,6 +104,10 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
         }
 
         getWindow().setBackgroundDrawable(null);
+
+        SpeechUtility.createUtility(this, SpeechConstant.APPID + "=59afcb10");
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO},1);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
 
         super.onCreate(savedInstanceState);
     }
@@ -301,7 +308,9 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
         }
         else if(v.getId() == R.id.fab_reading){
             //...语音读出新闻
-            toast(mBodyTv.getText().toString());
+            //toast(mBodyTv.getText().toString());
+            Sync sync = new Sync(this);
+            sync.startHeCheng(mBodyTv.getText().toString());
             //toast("语音读出新闻，尚未完成");
         }
     }
@@ -321,7 +330,6 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
             }
         }
         else if(item.getItemId() == R.id.menu_share){
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
 
             String str = "";
             str = "来自XWLNews:\n" + mSummary.title + "\n" + mSummary.intro + "\n" + "原网址: " + mSummary.url;

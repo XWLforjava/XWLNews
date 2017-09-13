@@ -1,9 +1,13 @@
 package com.oushangfeng.ounews.module.news.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.oushangfeng.ounews.R;
 import com.oushangfeng.ounews.annotation.ActivityFragmentInject;
@@ -66,6 +70,20 @@ public class NewsActivity extends BaseActivity<INewsPresenter> implements INewsV
         if (item.getItemId() == R.id.action_channel_manage) {
             //  跳转到频道选择界面
             showActivity(this, new Intent(this, NewsChannelActivity.class));
+        }
+        else if(item.getItemId() == R.id.action_search_news){
+            final EditText inputServer = new EditText(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("News Search").setIcon(android.R.drawable.ic_dialog_info).setView(inputServer)
+                    .setNegativeButton("Cancel", null);
+            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+                public void onClick(DialogInterface dialog, int which) {
+                    toast(inputServer.getText().toString());
+
+                }
+            });
+            builder.show();
         }
         return super.onOptionsItemSelected(item);
     }
