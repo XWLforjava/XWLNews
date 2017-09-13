@@ -1,15 +1,20 @@
 package com.oushangfeng.ounews.share;
 
-import java.io.File;  
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Date;
   
 import android.content.ComponentName;  
 import android.content.Context;  
 import android.content.Intent;  
 import android.content.pm.PackageManager;  
-import android.content.pm.PackageManager.NameNotFoundException;  
-import android.net.Uri;  
-import android.text.TextUtils;  
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Environment;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 /**
@@ -27,7 +32,6 @@ public class ShareUtil {
     }  
 	
 	public static final String IMG_SAVE_PATH = "/storage/emulated/legacy/display-client/picture/";
-    
 	/**
 	 *常用包名 package name
 	 */	
@@ -219,7 +223,11 @@ public class ShareUtil {
           
     }  
 	
-	public void shareToWXCircle(String content, File file){
+	public void shareToWXCircle(String content, Bitmap bitmap){
+        String filename = new Date().getTime()+".png";
+        String filepath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/display-client/picture/"+filename;
+        savePicture(bitmap, filepath);
+        File file = new File(filepath);
 		if (checkInstall(WEIXIN_PACKAGE_NAME)) {  
                 shareImgToWXCircle(content, WEIXIN_PACKAGE_NAME,  
                     WEIXIN_FRIENDCIRCLE_CLASSNAME, file);  
@@ -260,5 +268,27 @@ public class ShareUtil {
         }else {  
             return false;  
         }  
-    }  
+    }
+
+    public void savePicture(Bitmap bitmap, String path)
+    {
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
+        {
+            try
+            {
+                String filename = path;//sdcardDir.getCanonicalPath()
+                File file = new File(filename);
+                FileOutputStream out = new FileOutputStream(file);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+                out.flush();
+                out.close();
+            } catch (FileNotFoundException e)
+            {
+                e.printStackTrace();
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
 }
