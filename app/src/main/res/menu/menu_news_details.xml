@@ -10,9 +10,16 @@
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/menu_share"
+        android:id="@+id/menu_sharetowscircle"
         android:icon="@drawable/ic_dvr_white"
         android:orderInCategory="100"
-        android:title="@string/share"
+        android:title="@string/sharetowxcircle"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_sharetoweibo"
+        android:icon="@drawable/ic_dvr_white"
+        android:orderInCategory="100"
+        android:title="@string/sharetoweibo"
         app:showAsAction="never"/>
 </menu>

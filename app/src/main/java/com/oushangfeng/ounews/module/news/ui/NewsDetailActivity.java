@@ -332,7 +332,7 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
                 mMenu.getItem(0).setTitle(R.string.delete_from_collection);
             }
         }
-        else if(item.getItemId() == R.id.menu_share){
+        else if(item.getItemId() == R.id.menu_sharetowscircle){
 
             String str = "";
             str = "来自XWLNews:\n" + mSummary.title + "\n" + mSummary.intro + "\n" + "原网址: " + mSummary.url;
@@ -356,6 +356,32 @@ public class NewsDetailActivity extends BaseActivity<INewsDetailPresenter> imple
             Uri picuri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), pic, "", ""));
             ShareUtil shareUtil = new ShareUtil(this);
             shareUtil.shareToWXCircle(str, picuri);
+            //toast("分享功能尚未完成");
+        }
+        else if(item.getItemId() == R.id.menu_sharetoweibo){
+
+            String str = "";
+            str = "来自XWLNews:\n" + mSummary.title + "\n" + mSummary.intro + "\n" + "原网址: " + mSummary.url;
+            Bitmap pic = null;
+            /*
+            if(mSummary.pictures.equals(""))
+                pic = BitmapFactory.decodeResource(getResources(), R.drawable.ic_fail);
+            else{
+                try {
+                    pic = Glide.with(this).load(mSummary.pictures).asBitmap().centerCrop().into(500, 500).get();
+                }catch (Exception e){
+                    pic = BitmapFactory.decodeResource(getResources(), R.drawable.ic_fail);
+                }
+            }
+            */
+            //mNewsImageView.setImageBitmap(pic);
+            mNewsImageView.setDrawingCacheEnabled(true);
+            pic = Bitmap.createBitmap(mNewsImageView.getDrawingCache());
+            mNewsImageView.setDrawingCacheEnabled(false);
+            //mNewsImageView.setImageBitmap(pic);
+            Uri picuri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), pic, "", ""));
+            ShareUtil shareUtil = new ShareUtil(this);
+            shareUtil.shareToWeibo(str, picuri);
             //toast("分享功能尚未完成");
         }
         return super.onOptionsItemSelected(item);
