@@ -40,7 +40,7 @@ android {
 
         if (variant.buildType.name.equals('release') || variant.buildType.name.equals('debug')) {
             variant.outputs.each { output ->
-                def appName = 'OuNews'
+                def appName = '2_刘辰屹'
                 def oldFile = output.outputFile
                 def buildName = ''
 
