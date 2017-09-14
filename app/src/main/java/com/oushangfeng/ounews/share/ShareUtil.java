@@ -243,7 +243,7 @@ public class ShareUtil {
          */
         if (checkInstall(WEIXIN_PACKAGE_NAME)) {
             Intent intent = new Intent();
-            ComponentName comp = new ComponentName(WEIXIN_PACKAGE_NAME, null);
+            ComponentName comp = new ComponentName(WEIXIN_PACKAGE_NAME, WEIXIN_FRIENDCIRCLE_CLASSNAME);
             intent.setComponent(comp);
             intent.setAction(Intent.ACTION_SEND);
             intent.setType("image/*");
@@ -259,8 +259,9 @@ public class ShareUtil {
     public void shareToWeibo(String content, Uri uri){
         if (checkInstall(WEIBO_PACKAGE_NAME)) {
             Intent intent = new Intent();
-            ComponentName comp = new ComponentName(WEIBO_PACKAGE_NAME, null);
-            intent.setComponent(comp);
+            intent.setPackage(WEIBO_PACKAGE_NAME);
+            //ComponentName comp = new ComponentName(WEIBO_PACKAGE_NAME, null);
+            //intent.setComponent(comp);
             intent.setAction(Intent.ACTION_SEND);
             intent.setType("image/*");
             intent.putExtra(Intent.EXTRA_STREAM, uri);
