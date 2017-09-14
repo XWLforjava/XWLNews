@@ -38,6 +38,7 @@
   **[] $VALUES;
   public *;
 }
+
 -keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 
 # LeakCanary
@@ -340,3 +341,4 @@ native ;
 #   minifyEnabled true
 #   proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 #}
+

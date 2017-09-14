@@ -10,12 +10,12 @@
     android:fitsSystemWindows="true"
     tools:context=".module.video.ui.VideoPlayActivity">
 
-    <com.oushangfeng.ounews.utils.ijkplayer.widget.media.IjkVideoView
+    <com.java.two.utils.ijkplayer.widget.media.IjkVideoView
         android:id="@+id/ijk_video_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <com.oushangfeng.ounews.widget.ThreePointLoadingView
+    <com.java.two.widget.ThreePointLoadingView
         android:id="@+id/tpl_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

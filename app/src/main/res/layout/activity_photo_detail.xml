@@ -10,7 +10,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.oushangfeng.ounews.module.photo.ui.PhotoDetailActivity">
+    tools:context="com.java.two.module.photo.ui.PhotoDetailActivity">
     <!--android:fitsSystemWindows="true" android:background="?attr/colorPrimary"-->
 
     <include layout="@layout/include_status_view"/>
@@ -25,7 +25,7 @@
         app:popupTheme="@style/AppTheme.PopupOverlay"
         app:theme="@style/ToolbarTheme"/>
 
-    <com.oushangfeng.ounews.widget.HackyViewPager
+    <com.java.two.widget.HackyViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -71,7 +71,7 @@
         android:textColor="@color/material_white"
         tools:text="@string/photo_page"/>
 
-    <com.oushangfeng.ounews.widget.ThreePointLoadingView
+    <com.java.two.widget.ThreePointLoadingView
         android:id="@+id/tpl_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

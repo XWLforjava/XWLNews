@@ -97,7 +97,7 @@
         app:layout_anchorGravity="bottom|end|left"/>
 
 
-    <com.oushangfeng.ounews.widget.ThreePointLoadingView
+    <com.java.two.widget.ThreePointLoadingView
         android:id="@+id/tpl_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -16,7 +16,7 @@
     tools:showIn="@layout/activity_news_collections">
     <!--android:background="?attr/background_color"-->
 
-    <com.oushangfeng.ounews.widget.refresh.RefreshLayout
+    <com.java.two.widget.refresh.RefreshLayout
         android:id="@+id/collections_layout"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <com.oushangfeng.ounews.widget.ThreePointLoadingView
+        <com.java.two.widget.ThreePointLoadingView
             android:id="@+id/tpl_view2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -36,7 +36,7 @@
             android:visibility="invisible"
             app:pointColor="?attr/pointColor"/>
 
-    </com.oushangfeng.ounews.widget.refresh.RefreshLayout>
+    </com.java.two.widget.refresh.RefreshLayout>
 
 
 </RelativeLayout>
