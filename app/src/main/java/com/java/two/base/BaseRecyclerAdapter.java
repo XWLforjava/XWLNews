@@ -180,6 +180,8 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
     }
 
     public void add(int pos, T item) {
+        if (mData.isEmpty())
+            mData = new ArrayList<T>();
         mData.add(pos, item);
         notifyItemInserted(pos);
     }
