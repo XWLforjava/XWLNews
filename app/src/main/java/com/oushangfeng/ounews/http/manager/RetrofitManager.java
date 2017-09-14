@@ -196,7 +196,9 @@ public class RetrofitManager {
         return (category == 0 ? mNewsService.getTsinghuaNewsList(pageNo, pageSize) : mNewsService.getTsinghuaNewsList(pageNo, pageSize, category))
                 .compose(new BaseSchedulerTransformer<JsonNode>());
     }
-
+    public Observable<JsonNode> searchTsinghuaNewsObservable(int pageNo, int pageSize, String keywords) {
+        return mNewsService.searchTsinghuaNews(pageNo, pageSize, keywords.replace(' ', '+')).compose(new BaseSchedulerTransformer<JsonNode>());
+    }
     /**
      * 网易新闻详情：例子：http://c.m.163.com/nc/article/BG6CGA9M00264N2N/full.html
      *

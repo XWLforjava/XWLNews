@@ -63,6 +63,12 @@ public interface NewsService {
             @Query("pageSize") int pageSize,
             @Query("category") int category);
 
+    @GET("action/query/search")
+    Observable<JsonNode> searchTsinghuaNews(
+            @Query("pageNo") int pageNo,
+            @Query("pageSize") int pageSize,
+            @Query("keyword") String keywords);
+
     @GET("action/query/detail")
     Observable<TsinghuaNewsDetail> getTsinghuaNewsDetail(
             @Query("newsId") String newsId);

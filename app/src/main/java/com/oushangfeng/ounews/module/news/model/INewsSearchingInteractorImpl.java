@@ -39,7 +39,7 @@ public class INewsSearchingInteractorImpl implements INewsSearchingInteractor<Li
     public Subscription requestNewsList(final RequestCallback<List<TsinghuaNewsSummary>> callback, int pageNo, String keywords) {
         KLog.e("新闻列表：" );
         return RetrofitManager.getInstance(HostType.TSINGHUA_NEWS)
-                .getTsinghuaNewsListObservable(pageNo, 20, 0)
+                .searchTsinghuaNewsObservable(pageNo, 20, keywords)
                 .map(new Func1<JsonNode, ArrayList<TsinghuaNewsSummary>>() {
                          @Override
                          public ArrayList<TsinghuaNewsSummary> call(JsonNode node) {
