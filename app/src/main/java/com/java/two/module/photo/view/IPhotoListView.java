@@ -1,0 +1,23 @@
+package com.java.two.module.photo.view;
+
+import android.support.annotation.NonNull;
+
+import com.java.two.base.BaseView;
+import com.java.two.bean.SinaPhotoList;
+import com.java.two.common.DataLoadType;
+
+import java.util.List;
+
+/**
+ * ClassName: IPhotoListView<p>
+ * Author: oubowu<p>
+ * Fuction: 图片新闻列表接口<p>
+ * CreateDate: 2016/2/21 1:35<p>
+ * UpdateUser: <p>
+ * UpdateDate: <p>
+ */
+public interface IPhotoListView extends BaseView {
+
+    void updatePhotoList(List<SinaPhotoList.DataEntity.PhotoListEntity> data, @NonNull String errorMsg, @DataLoadType.DataLoadTypeChecker int type);
+
+}
