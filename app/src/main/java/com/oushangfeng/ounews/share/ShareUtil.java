@@ -243,7 +243,7 @@ public class ShareUtil {
          */
         if (checkInstall(WEIXIN_PACKAGE_NAME)) {
             Intent intent = new Intent();
-            ComponentName comp = new ComponentName(WEIXIN_PACKAGE_NAME, WEIXIN_FRIENDCIRCLE_CLASSNAME);
+            ComponentName comp = new ComponentName(WEIXIN_PACKAGE_NAME, null);
             intent.setComponent(comp);
             intent.setAction(Intent.ACTION_SEND);
             intent.setType("image/*");
@@ -254,8 +254,24 @@ public class ShareUtil {
             toInstallWebView("http://weixin.qq.com/download");
         }
 
-	}	
-	
+	}
+
+    public void shareToWeibo(String content, Uri uri){
+        if (checkInstall(WEIBO_PACKAGE_NAME)) {
+            Intent intent = new Intent();
+            ComponentName comp = new ComponentName(WEIBO_PACKAGE_NAME, null);
+            intent.setComponent(comp);
+            intent.setAction(Intent.ACTION_SEND);
+            intent.setType("image/*");
+            intent.putExtra(Intent.EXTRA_STREAM, uri);
+            intent.putExtra(Intent.EXTRA_TEXT, content);
+            context.startActivity(intent);
+        } else {
+            toInstallWebView("https://m.weibo.cn");
+        }
+
+    }
+
     /**  
      * 是否安装分享app  
      * @param packageName  
